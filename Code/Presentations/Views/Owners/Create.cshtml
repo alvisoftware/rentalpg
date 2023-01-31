@@ -1,0 +1,123 @@
+﻿@model Domain_Layer.Models.Owners
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/AdminLTE/_Layout.cshtml";
+}
+@*
+<h1>Create</h1>
+
+<h4>Owners</h4>
+<hr />*@
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Oweners</h3>
+                    </div>
+                    <form asp-action="Create" class="form-horizontal">
+                        <div class="card-body">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <label asp-for="firstname" class="control-label"></label>
+                                    <input asp-for="firstname" class="form-control" />
+                                    <span asp-validation-for="firstname" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label asp-for="lastname" class="control-label"></label>
+                                    <input asp-for="lastname" class="form-control" />
+                                    <span asp-validation-for="lastname" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <label asp-for="email" class="control-label"></label>
+                                    <input asp-for="email" class="form-control" />
+                                    <span asp-validation-for="email" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label asp-for="contact" class="control-label"></label>
+                                    <input asp-for="contact" class="form-control" />
+                                    <span asp-validation-for="contact" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <label asp-for="altcontact" class="control-label"></label>
+                                    <input asp-for="altcontact" class="form-control" />
+                                    <span asp-validation-for="altcontact" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label asp-for="companyname" class="control-label"></label>
+                                    <input asp-for="companyname" class="form-control" />
+                                    <span asp-validation-for="companyname" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <label asp-for="website" class="control-label"></label>
+                                    <input asp-for="website" class="form-control" />
+                                    <span asp-validation-for="website" class="text-danger"></span>
+                                </div>
+                                
+                            </div>
+                            <div class="float-right">
+                                @*<input type="submit" value="submit" class="btn btn-primary btn-block" onclick="location.href='@Url.Action("Index", "Owners")'" />*@
+                                <input type="submit" value="Submit" class="btn btn-success" />
+                                <input type="reset" value="Cancel" class="btn btn-danger" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
+
+@*
+
+<div class="form-group">
+    <label asp-for="id" class="control-label"></label>
+    <input asp-for="id" class="form-control" />
+    <span asp-validation-for="id" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="CreatedDate" class="control-label"></label>
+    <input asp-for="CreatedDate" class="form-control" />
+    <span asp-validation-for="CreatedDate" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="deleteddate" class="control-label"></label>
+    <input asp-for="deleteddate" class="form-control" />
+    <span asp-validation-for="deleteddate" class="text-danger"></span>
+</div>
+<div class="form-group col-sm-6">
+                                    <div class="row">
+                                        <div class="form-group col-sm-3 form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
+                                            </label>
+                                        </div>
+                                        <div class="form-group col-sm-3 form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" asp-for="IsDelete" /> @Html.DisplayNameFor(model => model.IsDelete)
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+*@

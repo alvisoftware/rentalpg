@@ -1,0 +1,80 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model Domain_Layer.Models.Owners
+@{
+    ViewData["Title"] = "Owners";
+    Layout = "~/Views/Shared/AdminLTE/_Layout.cshtml";
+}
+
+<div class="col-sm-6">
+    <h1 class="m-0 text-dark">Owener Detils</h1>
+</div>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-12">
+                <!-- general form elements -->
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Owenenrs</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                    <form class="form-horizontal">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <label for="Firstname">First Name</label>
+                                    <input type="text" class="form-control" placeholder="Owener Firstname">
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="Lastname">Last Name</label>
+                                    <input type="text" class="form-control" placeholder="Owener Lastname">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <label for="exampleInputEmail1">Email address</label>
+                                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="Contactno">Contact No</label>
+                                    <input type="number" pattern="\d{3}[\-]\d{3}[\-]\d{4}" required class="form-control" placeholder="Owener Contactno">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <label for="AltContactno">AltContact no</label>
+                                    <input type="number" onclick="" class="form-control" placeholder="Alternet Contact">
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="Companyname">Company Name</label>
+                                    <input type="text" class="form-control" placeholder="Companyname">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <label for="Website">Website</label>
+                                    <input type="url" class="form-control" placeholder="Company Website">
+                                </div>
+                            </div>
+                            @*<div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                            </div>*@
+                        </div>
+                        <!-- /.card-body -->
+
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="reset" class="btn btn-close">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+    </div>
+</section>

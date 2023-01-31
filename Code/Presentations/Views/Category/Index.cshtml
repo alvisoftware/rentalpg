@@ -1,0 +1,98 @@
+﻿@model IEnumerable<DomainLayer.Models.Category>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/AdminLTE/_Layout.cshtml";
+}
+<h1>Category List</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.parentid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.isactive)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.surl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.skeyword)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.sdiscription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.order)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.deleteddate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsActive)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsDelete)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.parentid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.isactive)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.surl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.skeyword)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.sdiscription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.order)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.deleteddate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsActive)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsDelete)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
