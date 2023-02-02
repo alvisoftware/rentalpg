@@ -11,7 +11,7 @@ namespace RepositoryLayer.IRepository
     {
         IEnumerable<T> GetAll();
         void insert(T property);
-        void SaveChanges();
+        void SaveChanges(); 
         List<PropertyModel> GetPropertyWithOwnerName();
     }
 }

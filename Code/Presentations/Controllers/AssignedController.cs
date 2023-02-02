@@ -20,7 +20,7 @@ namespace Presentations.Controllers
         public IActionResult Create()
         {
             HttpHelper<Subtable> httpHelper = new HttpHelper<Subtable>(_configuration, _httpContextAccessor);
-            //Property DropDown
+            #region Property DropDown
             var dropdownresult = httpHelper.GetRequest<ResponseResultAdmin<List<PropertyInfo>>>(_sPostEndPoint).Result;
             List<SelectListItem> ObjList = new List<SelectListItem>();
             if(dropdownresult.IsSuccess && dropdownresult.Result != null)
@@ -30,7 +30,8 @@ namespace Presentations.Controllers
                     ObjList.Add(new SelectListItem() { Text = item.name});
                 }
             }
-            //tenant dropdown
+            #endregion
+            #region tenant dropdown
             var dropdowntenant = httpHelper.GetRequest<ResponseResultAdmin<List<Tenant>>>(_sPostEndPoint).Result;
             List<SelectListItem> tenant = new List<SelectListItem>();
             if (dropdowntenant.IsSuccess && dropdowntenant.Result != null)
@@ -40,7 +41,8 @@ namespace Presentations.Controllers
                     ObjList.Add(new SelectListItem() { Text = item.firsttname+' '+item.lasttname });
                 }
             }
-            //Transtype DropDown
+            #endregion
+            #region Transtype DropDown
             var dropdowntrans = httpHelper.GetRequest<ResponseResultAdmin<List<PropertyInfo>>>(_sPostEndPoint).Result;
             List<SelectListItem> trans = new List<SelectListItem>();
             if (dropdowntrans.IsSuccess && dropdowntrans.Result != null)
@@ -50,6 +52,7 @@ namespace Presentations.Controllers
                     ObjList.Add(new SelectListItem() { Text = item.transtpetype.ToString() });
                 }
             }
+            #endregion
             ViewBag.Locations = ObjList;
             ViewBag.tenant = tenant;
             ViewBag.trans = trans;

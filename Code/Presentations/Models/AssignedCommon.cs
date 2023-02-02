@@ -1,4 +1,4 @@
-﻿using static DomainLayer.Models.PropertyInfo;
+﻿    using static DomainLayer.Models.PropertyInfo;
 
 namespace Presentations.Models
 {

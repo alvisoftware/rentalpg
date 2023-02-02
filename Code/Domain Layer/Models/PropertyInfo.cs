@@ -10,7 +10,7 @@ namespace DomainLayer.Models
     public class PropertyInfo:BaseEntity
     {
         public long id { get; set; }
-        public int propertytypeid { get; set; }
+        public long propertytypeid { get; set; }
         public long ownerid { get; set; }
         public string name { get; set; }
         public string address1 { get; set; }

@@ -37,9 +37,9 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-4" >
                                     <label class="control-label">Amount</label>
-                                    <input type="text" class="form-control">
+                                    <input id="amount" type="text" class="form-control">
                                 </div>
                             </div>
                             <div class="row">
@@ -47,27 +47,27 @@
                                     <label>Transatype Dropdown</label>
                                     @Html.DropDownList("PayAs", new SelectList(Enum.GetValues(typeof(payas))), "Select Pay As", new {@class = "form-control"})
                                 </div>
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-3" >
                                     <label>Start Date:</label>
                                     <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                                        <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate" />
+                                        <input type="text" id="startdate" class="form-control datetimepicker-input" data-target="#reservationdate" />
                                         <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-3" >
                                     <label>End Date:</label>
                                     <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                                        <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate" />
+                                        <input type="text" id="enddate" class="form-control datetimepicker-input" data-target="#reservationdate" />
                                         <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group col-md-3">
-                                    <label class="control-label">Payable Amount</label>
-                                    <input type="text" class="form-control">
+                                <div class="form-group col-md-3" >
+                                    <label class="control-label">PayableAmount</label>
+                                    <input type="text" class="form-control" id="amount">
                                 </div>
                             </div>
                             <div class="row d-flex">
@@ -85,17 +85,19 @@
                                     </div>
                                 </div>
                                 <div class="form-group col-md-4 d-flex align-items-center justify-content-end pr-5 gap-md-5">
-                                    <input type="submit" value="Calculate" class="btn btn-success " />
+                                    <input type="button" value="Calculate" id="btnGet" class="btn btn-success " />
                                     <input type="reset" value="cancel" class="btn btn-danger" />
                                 </div>
                             </div>
-                            
-                            @*<div class="float-right">
-                                <input type="submit" value="Calculate" class="btn btn-success" />
-                                <input type="reset" value="cancel" class="btn btn-danger" />
-                            </div>*@
                         </div>
                     </form>
+                    <table class="table">
+                        <tr>
+                            <th>startdate</th>
+                            <th>enddate</th>
+                            <th>amount</th>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>
@@ -108,4 +110,42 @@
 *@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        $(document).ready(function () {
+            $("#btnGet").click(function () {
+
+                $.ajax({
+                    type: "POST",
+                    url: "/RentCount/calculaterent",
+                    data: {'startdate': '01/02/2023','enddate': '15/02/2023','amount': '1500'},
+                    
+                    success: function (response) {
+                        for(var i=0;i<response.length;i++){
+                            tr = $('<tr/>');
+                            tr.append("<td>" + response[i].startdate+"</td>");
+                            tr.append("<td>" + response[i].enddate + "</td>");
+                            tr.append("<td>" + response[i].amount + "</td>");
+                            $('table').append(tr);
+                        }
+                       //alert("Successfully Get Records");
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            });
+        });
+    </script>
+
 }
+
+
+@*contentType: "application/json; charset=utf-8",
+                    dataType: 'json',*@
+@*var rent = '{startdate: "01/02/2023",enddate: "15/02/2023",amount: "150"}';*@
+
+                    @*alert("Hello: " + response.startdate + ".\nCurrent Date and Time: " + response.DateTime);*@
