@@ -11,21 +11,21 @@ namespace ApiLayer.Controllers
     [ApiController]
     public class RentTableController : ControllerBase
     {
-        private readonly IRentTableService<RentTable> _rentTable;
+        private readonly IRentTableService<RentDetails> _rentTable;
         private readonly ApplicationDbContext _applicationDbContext;
-        public RentTableController(IRentTableService<RentTable> rentTable, ApplicationDbContext applicationDbContext)
+        public RentTableController(IRentTableService<RentDetails> rentTable, ApplicationDbContext applicationDbContext)
         {
             _rentTable = rentTable;
             _applicationDbContext = applicationDbContext;
         }
         [HttpPost]
-        public async Task<IActionResult> CreateRent(RentTable rentTable)
+        public async Task<IActionResult> CreateRent(RentDetails rentTable)
         {
             try
             {
                 if(rentTable == null)
                 {
-                    return BadRequest(new ResponseResult<RentTable>
+                    return BadRequest(new ResponseResult<RentDetails>
                     {
                         IsSuccess = false,
                         message = "Renttable not found"
@@ -34,7 +34,7 @@ namespace ApiLayer.Controllers
                 else
                 {
                     _rentTable.Insert(rentTable);
-                    return Ok(new ResponseResult<RentTable>
+                    return Ok(new ResponseResult<RentDetails>
                     {
                         IsSuccess = true,
                         message = "Record Save",
@@ -44,7 +44,7 @@ namespace ApiLayer.Controllers
             }
             catch(Exception ex)
             {
-                return StatusCode(500, new ResponseResult<RentTable>
+                return StatusCode(500, new ResponseResult<RentDetails>
                 {
                     IsSuccess = false,
                     message = "somthing went wrong"

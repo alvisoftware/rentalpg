@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace Service_Layer.Services
 {
-    public class RentTableService:IRentTableService<RentTable>
+    public class RentTableService:IRentTableService<RentDetails>
     {
-        private readonly IRentTableRepository<RentTable> _rentTable;
-        public RentTableService(IRentTableRepository<RentTable> rentTable)
+        private readonly IRentTableRepository<RentDetails> _rentTable;
+        public RentTableService(IRentTableRepository<RentDetails> rentTable)
         {
             _rentTable = rentTable;
         }
-        public void Insert(RentTable entity)
+        public void Insert(RentDetails entity)
         {
             try
             {

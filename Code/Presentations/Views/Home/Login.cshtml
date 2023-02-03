@@ -1,4 +1,7 @@
-﻿@{
+﻿@model DomainLayer.Models.UserRole
+
+
+@{
     Layout = null;
 }
 
@@ -30,9 +33,9 @@
                 <div class="card-body login-card-body">
                     <p class="login-box-msg">Sign in to start your session</p>
 
-                    @*<form action="../../Owners.html" method="post">*@
+                    <form asp-action="Login" asp-controller="Home">
                         <div class="input-group mb-3">
-                            <input type="email" class="form-control" placeholder="Username">
+                            <input type="" class="form-control" placeholder="Username">
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-envelope"></span>
@@ -58,12 +61,12 @@
                             </div>
                             <!-- /.col -->
                             <div class="col-4">
-                                 <input type="submit" value="Login"  class="btn btn-primary btn-block" onclick="location.href='@Url.Action("Index", "Home")'" /> 
+                                 <input type="submit" value="Login"  class="btn btn-primary btn-block" /> 
                                 @*<button type="submit" class="btn btn-primary btn-block signin" onclick="window.location.href='<%=Url Action("Index","Home")%>Sign In</button>*@
                             </div>
                             <!-- /.col -->
                         </div>
-                    @*</form>*@
+                    </form>
                     <p class="mb-1">
                         <a href="forgot-password.html">I forgot my password</a>
                     </p
