@@ -34,7 +34,7 @@ namespace ApiLayer.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new ResponseResult<UserModel>
+                return StatusCode(500, new ResponseResult<UserRole>
                 {
                     IsSuccess = false,
                     message = "Record Saved Failed"

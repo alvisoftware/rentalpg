@@ -4,6 +4,10 @@ using System.Diagnostics;
 using Domain_Layer.Models;
 using DomainLayer.Models;
 using Presentations.Common;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Presentations.Controllers
 {
@@ -17,29 +21,39 @@ namespace Presentations.Controllers
             _configuration = configuration;
             _httpContextAccessor = httpContextAccessor;
         }
+        [HttpGet]
+
         public IActionResult Index()
         {
-            return View(new UserRole());
+            var claim = HttpContext.User.Claims;
+            return View();
         }
         [HttpGet]
         public IActionResult Login()
         {
-            return View();
+            return View(new UserModel());
         }
         [HttpPost]
-        public IActionResult Login(UserModel usersModel)
+        public IActionResult Login(UserModel userModel)
         {
             HttpHelper<UserModel> httpHelper = new HttpHelper<UserModel>(_configuration, _httpContextAccessor);
-            var response = httpHelper.PostRequest<UserModel,ResponseResultAdmin<string> >(_sPostEndpoint, usersModel).Result;
-            return View(response);
-            //if (response != null)
-            //{
-            //    return RedirectToAction("Index", "Home");
-            //}
-            //else
-            //{
-            //    return View();
-            //}
+            var response = httpHelper.PostRequest<UserModel, ResponseResultAdmin<string>>(_sPostEndpoint, userModel).Result;
+
+            if (response != null && response.Result != null)
+            {
+                var claims = new List<Claim>
+                 {
+                     new Claim(ClaimTypes.Name, userModel.userName),
+                 };
+                var claimsIdentity = new ClaimsIdentity(claims, "Login");
+                HttpContext.SignInAsync(new ClaimsPrincipal(claimsIdentity));
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View();
+            }
+            //return View(response);
         }
 
     }

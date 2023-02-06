@@ -1,4 +1,4 @@
-﻿@model DomainLayer.Models.UserRole
+﻿@model DomainLayer.Models.UserModel
 
 
 @{
@@ -35,7 +35,7 @@
 
                     <form asp-action="Login" asp-controller="Home">
                         <div class="input-group mb-3">
-                            <input type="" class="form-control" placeholder="Username">
+                            <input type="text" class="form-control" asp-for="userName" maxlength="15" placeholder="Username">
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-envelope"></span>
@@ -43,7 +43,7 @@
                             </div>
                         </div>
                         <div class="input-group mb-3">
-                            <input type="password" class="form-control" placeholder="Password">
+                        <input type="password" class="form-control" asp-for="password" maxlength="15" placeholder="Password">
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-lock"></span>
@@ -67,9 +67,6 @@
                             <!-- /.col -->
                         </div>
                     </form>
-                    <p class="mb-1">
-                        <a href="forgot-password.html">I forgot my password</a>
-                    </p
                 </div>
                 <!-- /.login-card-body -->
             </div>

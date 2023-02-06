@@ -47,7 +47,11 @@ namespace RepositoryLayer.Repository
             return new Tokens { Token = tokenHandler.WriteToken(token) };
         }
 
-        //public void login(T login)
+    }
+}
+
+
+//public void login(T login)
         //{
         //    if (login == null)
         //    {
@@ -61,5 +65,3 @@ namespace RepositoryLayer.Repository
         //{
         //    _applicationDbContext.SaveChanges();
         //}
-    }
-}

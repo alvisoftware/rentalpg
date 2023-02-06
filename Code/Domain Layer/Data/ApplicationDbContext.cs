@@ -30,6 +30,7 @@ namespace Domain_Layer.Data
             throw new NotImplementedException();
         }
         public DbSet<UserRole> users { get; set; }
+        //public DbSet<UserModel> usersRole { get; set; }
         public DbSet<Owners> owners { get; set; }
         public DbSet<PropertyInfo> propertyInfos { get; set; }
         public DbSet<Tenant> tenants { get; set; }
