@@ -1,4 +1,5 @@
-﻿using RepositoryLayer.CustomeModel;
+﻿using DomainLayer.Models;
+using RepositoryLayer.CustomeModel;
 using RepositoryLayer.IRepository;
 using RepositoryLayer.Model;
 using Service_Layer.IServices;
@@ -16,6 +17,11 @@ namespace Service_Layer.Services
         public RentCountService(IRentCountRepository<RentCountModel> rentCountRepository)
         {
             _rentCountRepository = rentCountRepository;
+        }
+
+        public void AddRent(List<RentDetails> listofrentdetails)
+        {
+            _rentCountRepository.AddRentDetails(listofrentdetails);
         }
 
         public List<RentCountModel> GetRentCounts(RentCountModel rentCountModel)

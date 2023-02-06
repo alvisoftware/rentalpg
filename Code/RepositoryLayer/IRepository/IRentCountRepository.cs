@@ -1,4 +1,5 @@
-﻿using RepositoryLayer.CustomeModel;
+﻿using DomainLayer.Models;
+using RepositoryLayer.CustomeModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,6 @@ namespace RepositoryLayer.IRepository
     {
         void SaveChanges();
         List<RentCountModel> RentCalculation(RentCountModel rentCountModel);
+        void AddRentDetails(List<RentDetails> listofrentdetails);
     }
 }

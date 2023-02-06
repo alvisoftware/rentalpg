@@ -1,5 +1,6 @@
 ﻿using ApiLayer.Common;
 using Domain_Layer.Data;
+using DomainLayer.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RepositoryLayer.CustomeModel;
@@ -18,6 +19,16 @@ namespace ApiLayer.Controllers
         {
             _countService = rentCountService;
             _applicationDbContext = applicationDbContext;
+        }
+        public async Task<IActionResult> AddRentCount(List<RentDetails> rentDetails)
+        {
+
+            return Ok(new ResponseResult<List<RentDetails>>
+            {
+                IsSuccess = true,
+                message = "Recordadd",
+                Result =  rentDetails
+            });
         }
         [HttpPost]
         [Route("Rentcalcuation")]

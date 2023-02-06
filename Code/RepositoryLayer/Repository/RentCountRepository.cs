@@ -1,4 +1,5 @@
 ﻿using Domain_Layer.Data;
+using DomainLayer.Models;
 using Microsoft.EntityFrameworkCore;
 using RepositoryLayer.CustomeModel;
 using RepositoryLayer.IRepository;
@@ -20,18 +21,25 @@ namespace RepositoryLayer.Repository
             _applicationDbContext = applicationDbContext;
             values = _applicationDbContext.Set<T>();
         }
+
+        public void AddRentDetails(List<RentDetails> listofrentdetails)
+        {
+            _applicationDbContext.rentTables.AddRange(listofrentdetails);
+            _applicationDbContext.SaveChanges();
+        }
+
         public List<RentCountModel> RentCalculation(RentCountModel rentCountModel)
         {
             List<RentCountModel> rentCounts = new List<RentCountModel>();
-            var date = DateTime.ParseExact(rentCountModel.startdate, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            var enddate = DateTime.ParseExact(rentCountModel.enddate, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            var date = rentCountModel.startdate;// DateTime.ParseExact(rentCountModel.startdate.ToShortDateString(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            var enddate = rentCountModel.enddate;// DateTime.ParseExact(rentCountModel.enddate.ToShortDateString(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
             string amount = rentCountModel.amount.ToString();
             var startOfWeek = GetStartOfWeek(date);
 
             while (enddate > startOfWeek)
             {
                 DateTime endOfWeekDate = startOfWeek.AddDays(6);
-                rentCounts.Add(new RentCountModel() { startdate = startOfWeek.ToString("dd/MM/yyyy"), enddate = endOfWeekDate.ToString("dd/MM/yyyy"), amount = amount });
+                rentCounts.Add(new RentCountModel() { startdate = startOfWeek, enddate = endOfWeekDate, amount = amount });
                 startOfWeek = endOfWeekDate.AddDays(1);
             }
             return rentCounts;

@@ -19,6 +19,7 @@ namespace Service_Layer.Services
             _propertyInfo = propertyInfo;
         }
 
+
         public IEnumerable<PropertyInfo> GetAll()
         {
             try

@@ -8,8 +8,8 @@ namespace RepositoryLayer.CustomeModel
 {
     public class RentCountModel
     {
-        public string startdate { get; set; }
-        public string enddate { get; set; }
+        public DateTime startdate { get; set; }
+        public DateTime enddate { get; set; }
         public string amount { get; set; }
     }
 }

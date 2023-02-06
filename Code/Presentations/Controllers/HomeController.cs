@@ -25,7 +25,7 @@ namespace Presentations.Controllers
 
         public IActionResult Index()
         {
-            var claim = HttpContext.User.Claims;
+            var claims = HttpContext.User.Claims;
             return View();
         }
         [HttpGet]

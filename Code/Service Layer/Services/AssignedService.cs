@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace Service_Layer.Services
 {
-    public class AssignedService : IAssignedService<Assigned>
+    public class AssignedService : IAssignedService<AssignedProperties>
     {
-        private readonly IAssignedRepository<Assigned> _assignedRepository;
-        public AssignedService(IAssignedRepository<Assigned> assignedRepository)
+        private readonly IAssignedRepository<AssignedProperties> _assignedRepository;
+        public AssignedService(IAssignedRepository<AssignedProperties> assignedRepository)
         {
             _assignedRepository = assignedRepository;
         }
-        public IEnumerable<Assigned> Get()
+        public IEnumerable<AssignedProperties> Get()
         {
             try
             {
@@ -29,7 +29,7 @@ namespace Service_Layer.Services
             }
         }
 
-        public void Insert(Assigned assignedProperty)
+        public void Insert(AssignedProperties assignedProperty)
         {
             try
             {

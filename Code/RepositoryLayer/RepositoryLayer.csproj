@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <Compile Remove="IRepository\IQueries.cs" />
+    <Compile Remove="IRepository\ISubTableRepository.cs" />
+    <Compile Remove="Repository\SubTableRepository.cs" />
   </ItemGroup>
 
   <ItemGroup>
