@@ -14,19 +14,29 @@ using System.Threading.Tasks;
 
 namespace RepositoryLayer.Repository
 {
-    public class UserRoleRepository: IUserRoleRepository
+    public class UserRoleRepository<T>: IUserRoleRepository<T> where T : class
     {
         private readonly ApplicationDbContext _applicationDbContext;
-        //private DbSet<T> role;
+        private DbSet<T> role;
         private readonly IConfiguration iconfiguration;
         public UserRoleRepository(ApplicationDbContext applicationDbContext, IConfiguration iconfiguration)
         {
             _applicationDbContext = applicationDbContext;
-            //role = _applicationDbContext.Set<T>();
+            role = _applicationDbContext.Set<T>();
             this.iconfiguration = iconfiguration;
         }
-      
-        public Tokens Authenticate(UserRole usersrole)
+
+        public void Add(T user)
+        {
+            if(user == null)
+            {
+                throw new ArgumentNullException("user");
+            }
+            role.Add(user);
+            _applicationDbContext.SaveChanges();
+        }
+
+        public Tokens Authenticate(Users usersrole)
         {
             if(!_applicationDbContext.users.Any(x=>x.userName==usersrole.userName && x.password== usersrole.password))
             {
@@ -47,6 +57,10 @@ namespace RepositoryLayer.Repository
             return new Tokens { Token = tokenHandler.WriteToken(token) };
         }
 
+        public void SaveChanges()
+        {
+            _applicationDbContext.SaveChanges();
+        }
     }
 }
 

@@ -1,4 +1,5 @@
 ﻿using DomainLayer.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Presentations.Common;
@@ -19,6 +20,7 @@ namespace Presentations.Controllers
             _httpContextAccessor = httpContextAccessor;
         }
         [HttpGet]
+        //[Authorize]
         public IActionResult Create()
         
         {

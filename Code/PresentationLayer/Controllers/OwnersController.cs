@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using Service_Layer.Services;
 using Service_Layer.IServices;
+using DomainLayer.Models;
 
 namespace PresentationLayer.Controllers
 {
@@ -14,12 +15,11 @@ namespace PresentationLayer.Controllers
     public class OwnersController : ControllerBase
     {
         private readonly IOwnerService<Owners> _ownerService;
-        private readonly ApplicationDbContext _applicationDbContext;
-        public OwnersController(IOwnerService<Owners> ownerService, ApplicationDbContext applicationDbContext
-            )
+        private readonly IUserRoleService<Users> _userRoleService;
+        public OwnersController(IUserRoleService<Users> userRoleService,IOwnerService<Owners> ownerService)
         {
-            _ownerService = ownerService;
-            _applicationDbContext = applicationDbContext;
+            _userRoleService = userRoleService;
+            _ownerService = ownerService;            
         }
        
         [HttpGet]
@@ -58,6 +58,7 @@ namespace PresentationLayer.Controllers
             }   
         }
         [HttpPost]
+        [Route("Add")]
         public async Task<IActionResult> CreateOwner(Owners owners)
         {
             try
@@ -72,6 +73,13 @@ namespace PresentationLayer.Controllers
                 }
                 else
                 {
+                    Users user = new Users();
+                    user.id = owners.id;
+                    user.userName = owners.email;
+                    user.password = owners.password;
+                    //user.role =  ;
+                    _userRoleService.Add(user);
+
                     _ownerService.Insert(owners);
                     return Ok(new ResponseResult<Owners>
                     {

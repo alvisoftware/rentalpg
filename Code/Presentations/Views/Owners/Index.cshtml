@@ -49,6 +49,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.IsDelete)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.password)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -91,6 +94,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.IsDelete)
             </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.password)
+                </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |

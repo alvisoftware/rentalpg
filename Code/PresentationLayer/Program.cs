@@ -47,9 +47,9 @@ builder.Services.AddScoped(typeof(IQueriesRepository<>), typeof(QueriesRepositor
 builder.Services.AddScoped(typeof(IRentCountRepository<>), typeof(RentCountRepository<>));
 builder.Services.AddScoped(typeof(IRentMasterRepository<>), typeof(RentMasterRepository<>));
 builder.Services.AddScoped(typeof(IRentTableRepository<>), typeof(RentTableRepository<>));
-//builder.Services.AddScoped(typeof(IUserRoleRepository<>), typeof(UserRoleRepository<>));
+builder.Services.AddScoped(typeof(IUserRoleRepository<>), typeof(UserRoleRepository<>));
 
-builder.Services.AddScoped<IUserRoleRepository, UserRoleRepository>();
+//builder.Services.AddScoped<IUserRoleRepository, UserRoleRepository>();
 //builder.Services.AddControllers();
 //services
 builder.Services.AddScoped<IOwnerService<Owners>, OwnerService>();
@@ -61,7 +61,7 @@ builder.Services.AddScoped<IQueriesServices<Queries>,QueriesService>();
 builder.Services.AddScoped<IRentCountService<RentCountModel>, RentCountService>();
 builder.Services.AddScoped<IRentMasterService<RentMaster>, RentMasterService>();
 builder.Services.AddScoped<IRentTableService<RentDetails>, RentTableService>();
-//builder.Services.AddScoped<IUserRoleService<UserRole>,UserRoleservice>();
+builder.Services.AddScoped<IUserRoleService<Users>, UserRoleService>();
 
 var app = builder.Build();
 // Configure the HTTP request pipeline.

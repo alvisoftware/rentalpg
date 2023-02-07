@@ -12,6 +12,7 @@ namespace Domain_Layer.Models
         public string? firstname { get; set; }
         public string? lastname { get; set; }
         public string? email { get; set; }
+        public string password { get; set; }
         public string? contact { get; set; }
         public string? altcontact { get; set; }
         public string? companyname { get; set; }

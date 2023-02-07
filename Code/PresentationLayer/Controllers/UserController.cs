@@ -9,15 +9,15 @@ namespace ApiLayer.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IUserRoleRepository _roleRepository;
-        public UserController(IUserRoleRepository roleRepository)
+        private readonly IUserRoleRepository<Users> _roleRepository;
+        public UserController(IUserRoleRepository<Users> roleRepository)
         {
             _roleRepository = roleRepository;
         }
 
         [HttpPost]
         [Route("Authenticate")]
-        public async Task<IActionResult> Authenticate(UserRole userRole)
+        public async Task<IActionResult> Authenticate(Users userRole)
         {
             try
             {
@@ -34,7 +34,7 @@ namespace ApiLayer.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new ResponseResult<UserRole>
+                return StatusCode(500, new ResponseResult<Users>
                 {
                     IsSuccess = false,
                     message = "Record Saved Failed"

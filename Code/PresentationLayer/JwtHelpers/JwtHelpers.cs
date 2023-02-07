@@ -17,11 +17,11 @@ namespace ApiLayer.JwtHelpers
         {
             return GetClaims(userAccounts);
         }
-        public static UserRole GetTokenKey(UserRole model)
+        public static Users GetTokenKey(Users model)
         {
             try 
             { 
-                var UserTokens = new UserRole();
+                var UserTokens = new Users();
                 UserTokens.userName = model.userName;
                 UserTokens.password = model.password;
                 return UserTokens;

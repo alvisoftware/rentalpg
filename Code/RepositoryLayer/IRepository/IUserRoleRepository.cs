@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 
 namespace RepositoryLayer.IRepository
 {
-    public interface IUserRoleRepository
+    public interface IUserRoleRepository<T> where T : class
     {
         //void login(T login);
-        //void SaveChanges();
+        void SaveChanges();
         //List<UsersModel> usersModels { get; set; }
-        Tokens Authenticate(UserRole usersrole);
+        void Add(T user);
+        Tokens Authenticate(Users usersrole);
     }
 }

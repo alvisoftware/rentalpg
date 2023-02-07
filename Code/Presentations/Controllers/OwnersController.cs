@@ -8,7 +8,7 @@ namespace Presentations.Controllers
 {
     public class OwnersController : Controller
     {
-        private readonly string _sPostEndPoint = "Owners";
+        private readonly string _sPostEndPoint = "Owners/Add";
         private readonly IConfiguration _configuration;
         private readonly IHttpContextAccessor _httpContextAccessor;
         public OwnersController(IConfiguration configuration, IHttpContextAccessor httpContextAccessor) /*: base(configuration, httpContextAccessor)*/
@@ -38,15 +38,16 @@ namespace Presentations.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Create(Owners owners)
+        public IActionResult Create(Owners owners) 
         {
+            
             HttpHelper<Owners> httpHelper = new HttpHelper<Owners>(_configuration, _httpContextAccessor);
-            ResponseResultAdmin<Owners>response = httpHelper.PostRequest<Owners,ResponseResultAdmin<Owners>>(_sPostEndPoint,owners).Result;
+            ResponseResultAdmin<Owners> response = httpHelper.PostRequest<Owners,ResponseResultAdmin<Owners>>(_sPostEndPoint,owners).Result;
             if (response != null)
             {
                 TempData["success"] = response;
-                //return RedirectToAction("Index","Owners");
-                return View("Index");
+                return RedirectToAction("Index", "Owners");
+                //return View("Index");
             }
             else
             {
@@ -57,4 +58,11 @@ namespace Presentations.Controllers
     }
 }
 
+
+//Owners owners = new Owners();
+////string id = 
+//string password = keyValuePairs["password"].ToString();
+//string email = keyValuePairs["email"].ToString();
+//owners.email = email;
+//owners.password = password;
 

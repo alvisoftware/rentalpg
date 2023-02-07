@@ -13,7 +13,7 @@ namespace Domain_Layer.Models
         public long id { get; set; }
         public DateTime CreatedDate { get; set; }=DateTime.Now;
         public DateTime deleteddate { get; set; }
-        public bool IsActive { get; set; } = false;
+        public bool IsActive { get; set; } = true;
         public bool IsDelete { get; set; } = false;
     }
 }

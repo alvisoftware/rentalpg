@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace Service_Layer.IServices
 {
-    //public interface IUserRoleService<T> where T : class
-    //{
-    //    void login(T login);
-    //}
+    public interface IUserRoleService<T> where T : class
+    {
+        void Add(T entity);
+        void login(T login);
+    }
 }

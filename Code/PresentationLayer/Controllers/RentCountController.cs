@@ -20,16 +20,16 @@ namespace ApiLayer.Controllers
             _countService = rentCountService;
             _applicationDbContext = applicationDbContext;
         }
-        public async Task<IActionResult> AddRentCount(List<RentDetails> rentDetails)
-        {
+        //public async Task<IActionResult> AddRentCount(List<RentDetails> rentDetails)
+        //{
 
-            return Ok(new ResponseResult<List<RentDetails>>
-            {
-                IsSuccess = true,
-                message = "Recordadd",
-                Result =  rentDetails
-            });
-        }
+        //    return Ok(new ResponseResult<List<RentDetails>>
+        //    {
+        //        IsSuccess = true,
+        //        message = "Recordadd",
+        //        Result =  rentDetails
+        //    });
+        //}
         [HttpPost]
         [Route("Rentcalcuation")]
         public async Task<IActionResult> Rentcalcuation(RentCountModel rentCountModel)
