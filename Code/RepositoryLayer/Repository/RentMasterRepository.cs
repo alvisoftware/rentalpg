@@ -34,7 +34,8 @@ namespace RepositoryLayer.Repository
 
         public List<RentModel> GetPropertyWithOwnerName()
         {
-            var query = _applicationDbContext.rentMasters.Join(_applicationDbContext.owners, own => own.ownerid, rent => rent.id,
+            var query = _applicationDbContext.rentMasters.Join(_applicationDbContext.owners,
+                    own => own.ownerid, rent => rent.id,
                  (rent, own) => new RentModel
                  {
                      ownername= own.firstname + "" + own.lastname,

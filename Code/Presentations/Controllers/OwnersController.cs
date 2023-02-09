@@ -1,4 +1,5 @@
 ﻿using Domain_Layer.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Presentations.Common;
 using Service_Layer.Services;
@@ -9,6 +10,7 @@ namespace Presentations.Controllers
     public class OwnersController : Controller
     {
         private readonly string _sPostEndPoint = "Owners/Add";
+        private readonly string _sPostEndPoints = "Owners";
         private readonly IConfiguration _configuration;
         private readonly IHttpContextAccessor _httpContextAccessor;
         public OwnersController(IConfiguration configuration, IHttpContextAccessor httpContextAccessor) /*: base(configuration, httpContextAccessor)*/
@@ -22,7 +24,7 @@ namespace Presentations.Controllers
         public async Task<IActionResult> Index()
         {
             HttpHelper<Owners> httpHelper = new HttpHelper<Owners>(_configuration, _httpContextAccessor);
-            var response = httpHelper.GetRequest<ResponseResultAdmin<List<Owners>>>(_sPostEndPoint).Result;
+            var response = httpHelper.GetRequest<ResponseResultAdmin<List<Owners>>>(_sPostEndPoints).Result;
             if (response != null)
             {
                 return View(response.Result);
@@ -33,6 +35,7 @@ namespace Presentations.Controllers
             }
         }
         [HttpGet]
+        //[Authorize]
         public IActionResult Create()
         {
             return View();
@@ -57,12 +60,3 @@ namespace Presentations.Controllers
         }
     }
 }
-
-
-//Owners owners = new Owners();
-////string id = 
-//string password = keyValuePairs["password"].ToString();
-//string email = keyValuePairs["email"].ToString();
-//owners.email = email;
-//owners.password = password;
-

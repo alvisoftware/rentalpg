@@ -1,6 +1,7 @@
 ﻿using Domain_Layer.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,8 +16,12 @@ namespace DomainLayer.Models
         public string name { get; set; }
         public string address1 { get; set; }
         public string address2 { get; set; }
-        public int cityid { get; set; }
-        public int stateid { get; set; }
+        public long cityid { get; set; }
+        [ForeignKey("cityid")]
+        public virtual CountryTable CountryTable { get; set; }
+        public long stateid { get; set; }
+        [ForeignKey("stateid")]
+        public virtual StateTable StateTable { get; set; }
         public string country { get; set; }
         public string zip { get; set; }
         public string description { get; set; }

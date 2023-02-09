@@ -43,26 +43,33 @@ builder.Services.AddScoped(typeof(IPropertyInfo<>), typeof(ProeprtyInfoRepositor
 builder.Services.AddScoped(typeof(ITenantRepository<>), typeof(TenantRepository<>));
 builder.Services.AddScoped(typeof(IAssignedRepository<>), typeof(AssignedPropertyRepository<>));
 builder.Services.AddScoped(typeof(IQueriesRepository<>), typeof(QueriesRepository<>));
-//builder.Services.AddScoped(typeof(ISubTableRepository<>), typeof(SubTableRepository<>));
 builder.Services.AddScoped(typeof(IRentCountRepository<>), typeof(RentCountRepository<>));
 builder.Services.AddScoped(typeof(IRentMasterRepository<>), typeof(RentMasterRepository<>));
 builder.Services.AddScoped(typeof(IRentTableRepository<>), typeof(RentTableRepository<>));
 builder.Services.AddScoped(typeof(IUserRoleRepository<>), typeof(UserRoleRepository<>));
-
+builder.Services.AddScoped(typeof(ICountryRepository<>), typeof(CountryRepository<>));
+builder.Services.AddScoped(typeof(IZipCodeRepository<>), typeof(ZipCodeRepository<>));
+builder.Services.AddScoped(typeof(IStateRepository<>), typeof(StateCodeRepository<>));
+builder.Services.AddScoped(typeof(IDashbordRepository<>), typeof(DashbordRepository<>));
+builder.Services.AddScoped(typeof(IUpcomingRentRepository<>), typeof(UpcomingRentRepository<>));
 //builder.Services.AddScoped<IUserRoleRepository, UserRoleRepository>();
 //builder.Services.AddControllers();
+
 //services
 builder.Services.AddScoped<IOwnerService<Owners>, OwnerService>();
 builder.Services.AddScoped<IPropertyService<PropertyInfo>, PropertyService>();
 builder.Services.AddScoped<ITenantService<Tenant>, TenantService>();
 builder.Services.AddScoped<IAssignedService<AssignedProperties>, AssignedService>();
 builder.Services.AddScoped<IQueriesServices<Queries>,QueriesService>();
-//builder.Services.AddScoped<ISubTableService<Subtable>,SubTableService>();
 builder.Services.AddScoped<IRentCountService<RentCountModel>, RentCountService>();
 builder.Services.AddScoped<IRentMasterService<RentMaster>, RentMasterService>();
 builder.Services.AddScoped<IRentTableService<RentDetails>, RentTableService>();
 builder.Services.AddScoped<IUserRoleService<Users>, UserRoleService>();
-
+builder.Services.AddScoped<ICountryService<CountryTable>, CountryService>();
+builder.Services.AddScoped<IStateCodeService<StateTable>, StateCodeService>();
+builder.Services.AddScoped<IZipCodeService<ZipCodeTable>, ZipCodeService>();
+builder.Services.AddScoped<IDashbordService<DashbordModel>, DashbordService>();
+builder.Services.AddScoped<IUpcomingRentService<UpcomingRent>, UpcomingRentService>();
 var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

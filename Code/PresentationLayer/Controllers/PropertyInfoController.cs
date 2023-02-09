@@ -1,10 +1,12 @@
 ﻿using ApiLayer.Common;
 using Domain_Layer.Data;
+using Domain_Layer.Models;
 using DomainLayer.Models;
 using Microsoft.AspNetCore.Mvc;
 using RepositoryLayer.IRepository;
 using RepositoryLayer.Model;
 using Service_Layer.IServices;
+using Service_Layer.Services;
 
 namespace ApiLayer.Controllers
 {
@@ -105,6 +107,9 @@ namespace ApiLayer.Controllers
                 }
                 else
                 {
+                    CountryTable country = new CountryTable();
+                    country.id = Convert.ToInt32(property.cityid);
+
                     _propertyService.Insert(property);
                     return Ok(new ResponseResult<PropertyInfo>
                     {
