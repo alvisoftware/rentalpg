@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DomainLayer.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,5 +11,6 @@ namespace Service_Layer.IServices
     {
         IEnumerable<T> GetAll();
         void insert(T entity);
+        IEnumerable<T> TenantRent();
     }
 }

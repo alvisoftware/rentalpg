@@ -47,20 +47,8 @@ namespace Presentations.Controllers
                 }
             }
             #endregion
-            #region Transtype DropDown
-            //var dropdowntrans = httpHelper.GetRequest<ResponseResultAdmin<List<PropertyInfo>>>(_sPostEndPoint).Result;
-            //List<SelectListItem> trans = new List<SelectListItem>();
-            //if (dropdowntrans.IsSuccess && dropdowntrans.Result != null)
-            //{
-            //    foreach (var item in dropdowntrans.Result)
-            //    {
-            //        ObjList.Add(new SelectListItem() { Text = item.transtpetype.ToString() });
-            //    }
-            //}
-            #endregion
             ViewBag.Locations = ObjList;
             ViewBag.tenant = tenant;
-            //ViewBag.trans = trans;
             return View();
         }
         [HttpPost]

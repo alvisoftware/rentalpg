@@ -1,5 +1,6 @@
 ﻿using Domain_Layer.Models;
 using DomainLayer.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Presentations.Common;
@@ -7,6 +8,7 @@ using RepositoryLayer.Model;
 
 namespace Presentations.Controllers
 {
+    [Authorize (Roles ="Owner")]
     public class PropertyInfoController : Controller
     {
         private readonly string _sPostEntPoint = "Propertyinfo";

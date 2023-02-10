@@ -23,17 +23,22 @@ namespace RepositoryLayer.Repository
 
         public IEnumerable<T> GetAll()
         {
+            var query = (from PropertyInfo in _applicationDbContext.propertyInfos
+                         join Owners in _applicationDbContext.owners on PropertyInfo.ownerid equals Owners.id
+                         select new
+                         {
+                             title = PropertyInfo.name,
+                             owner = Owners.firstname + " " + Owners.lastname,
+                             date = PropertyInfo.availabledate,
+                             pid = PropertyInfo.id,
+                             oid = Owners.id
+                         }).ToList();
+            return entites.AsEnumerable();
+        }
 
-            //var query = (from PropertyInfo in _applicationDbContext.propertyInfos
-            //            join Owners in _applicationDbContext.owners on PropertyInfo.owenerid equals Owners.OwnersId
-            //            select new
-            //            {
-            //                title = PropertyInfo.name,
-            //                owner=Owners.firstname+" "+Owners.lastname,
-            //                date= PropertyInfo.availabledate,
-            //                pid=PropertyInfo.id,
-            //                oid=Owners.id
-            //            }).ToList();
+        public IEnumerable<T> GetTenantRent()
+        {
+
             return entites.AsEnumerable();
         }
 

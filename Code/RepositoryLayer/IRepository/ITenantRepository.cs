@@ -10,6 +10,6 @@ namespace RepositoryLayer.IRepository
     {
         IEnumerable<T> GetAll();
         void insert(T entity);
-
+        IEnumerable<T> GetTenantRent();
     }
 }

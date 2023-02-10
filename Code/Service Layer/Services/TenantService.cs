@@ -46,6 +46,9 @@ namespace Service_Layer.Services
             }
         }
 
-        
+        public IEnumerable<Tenant> TenantRent()
+        {
+            return _tenantRepository.GetTenantRent();
+        }
     }
 }

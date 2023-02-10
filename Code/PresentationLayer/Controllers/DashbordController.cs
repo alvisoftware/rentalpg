@@ -1,8 +1,12 @@
 ﻿using ApiLayer.Common;
+using DomainLayer.Migrations;
+using DomainLayer.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using RepositoryLayer.CustomeModel;
 using Service_Layer.IServices;
+using Service_Layer.Services;
 
 namespace ApiLayer.Controllers
 {
@@ -11,15 +15,28 @@ namespace ApiLayer.Controllers
     public class DashbordController : ControllerBase
     {
         private readonly IDashbordService<DashbordModel> _dashbordService;
-        public DashbordController(IDashbordService<DashbordModel> dashbordService)
+        private readonly IPropertyService<PropertyInfo> _propertyService;
+        private readonly IRentMasterService<RentMaster> _rentMasterService;
+        public DashbordController(IDashbordService<DashbordModel> dashbordService,IPropertyService<PropertyInfo> propertyService,IRentMasterService<RentMaster> rentMasterService)
         {
             _dashbordService = dashbordService;
+            _propertyService = propertyService;
+            _rentMasterService = rentMasterService;
         }
         [HttpGet]
         public async Task<IActionResult> Propertycount()
-        {
-            var result = _dashbordService.DashbordModel();
-             return Ok(result);
+        {            
+            var results = _dashbordService.DashbordModel();
+            return Ok(results);
         }
     }
 }
+//UpcomingRent upcomingRent = new UpcomingRent();
+//PropertyInfo propertyInfo = new PropertyInfo();
+//upcomingRent.propertytitle = propertyInfo.name;
+//_propertyService.GetAll();
+//RentMaster rentMaster = new RentMaster();
+//upcomingRent.startDate = rentMaster.startdate;
+//upcomingRent.endDate = rentMaster.enddate;
+//upcomingRent.rentamount = rentMaster.amount;
+//_rentMasterService.Insert(rentMaster);

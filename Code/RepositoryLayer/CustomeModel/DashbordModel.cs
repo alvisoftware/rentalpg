@@ -11,6 +11,6 @@ namespace RepositoryLayer.CustomeModel
         public int property { get; set; }
         public int avilable { get; set; }
         public int rent { get; set; }
-        public int upcomingrent { get; set; }
+        public List<TenantRentModel> upcomingrent { get; set; }
     }
 }

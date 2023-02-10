@@ -19,6 +19,29 @@ namespace ApiLayer.Controllers
             _applicationDbContext = applicationDbContext;
         }
         [HttpGet]
+        [Route("tenantrent")]
+        public async Task<IActionResult> TenantRent()
+        {
+            var tenant = _tenantService.TenantRent().ToList();
+            if (tenant != null)
+            {
+                return Ok(new ResponseResult<List<Tenant>>
+                {
+                    IsSuccess = true,
+                    message = "",
+                    Result = tenant
+                });
+            }
+            else
+            {
+                return NotFound(new ResponseResult<List<Tenant>>
+                {
+                    IsSuccess = true,
+                    message = "Tentnat Rent not found"
+                });
+            }
+        }
+        [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ResponseResult<List<Tenant>>))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetTenant()

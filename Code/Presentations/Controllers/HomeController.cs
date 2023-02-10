@@ -8,6 +8,8 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authorization;
+using static DomainLayer.Models.Users;
+using Microsoft.AspNetCore.Identity;
 
 namespace Presentations.Controllers
 {
@@ -34,17 +36,17 @@ namespace Presentations.Controllers
             return View(new UserModel());
         }
         [HttpPost]
-        public IActionResult Login(UserModel userModel)
+        public IActionResult Login(Users users)
         {
-            HttpHelper<UserModel> httpHelper = new HttpHelper<UserModel>(_configuration, _httpContextAccessor);
-            var response = httpHelper.PostRequest<UserModel, ResponseResultAdmin<string>>(_sPostEndpoint, userModel).Result;
-
+            HttpHelper<Users> httpHelper = new HttpHelper<Users>(_configuration, _httpContextAccessor);
+            var response = httpHelper.PostRequest<Users, ResponseResultAdmin<string>>(_sPostEndpoint, users).Result;
             if (response != null && response.Result != null)
             {
                 var claims = new List<Claim>
-                 {
-                     new Claim(ClaimTypes.Name, userModel.userName),
-                 };
+                {
+                    new Claim(ClaimTypes.Name, users.userName),
+                    new Claim(ClaimTypes.Role,users.role.ToString())
+                };
                 var claimsIdentity = new ClaimsIdentity(claims, "Login");
                 HttpContext.SignInAsync(new ClaimsPrincipal(claimsIdentity));
                 return RedirectToAction("Index", "Home");
@@ -53,8 +55,36 @@ namespace Presentations.Controllers
             {
                 return View();
             }
-            //return View(response);
+
         }
 
     }
 }
+
+//foreach (int i in Enum.GetValues(typeof(userrole)))
+//{
+//    string role = Enum.GetName(typeof(userrole), i);
+//    NewObject thing = new NewObject
+//    {
+//        role = 1,
+//        Number = i
+//    };
+//}
+
+
+//HttpHelper<UserModel> httpHelper = new HttpHelper<UserModel>(_configuration, _httpContextAccessor);
+//var response = httpHelper.PostRequest<UserModel, ResponseResultAdmin<string>>(_sPostEndpoint, userModel).Result;
+//if (response != null && response.Result != null)
+//{
+//    var claims = new List<Claim>
+//                 {
+//                     new Claim(ClaimTypes.Name, userModel.userName),
+//                 };
+//    var claimsIdentity = new ClaimsIdentity(claims, "Login");
+//    HttpContext.SignInAsync(new ClaimsPrincipal(claimsIdentity));
+//    return RedirectToAction("Index", "Home");
+//}
+//else
+//{
+//    return View();
+//}

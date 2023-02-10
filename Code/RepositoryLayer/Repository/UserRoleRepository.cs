@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace RepositoryLayer.Repository
 {
-    public class UserRoleRepository<T>: IUserRoleRepository<T> where T : class
+    public class UserRoleRepository<T> : IUserRoleRepository<T> where T : class
     {
         private readonly ApplicationDbContext _applicationDbContext;
         private DbSet<T> role;
@@ -28,7 +28,7 @@ namespace RepositoryLayer.Repository
 
         public void Add(T user)
         {
-            if(user == null)
+            if (user == null)
             {
                 throw new ArgumentNullException("user");
             }
@@ -36,12 +36,16 @@ namespace RepositoryLayer.Repository
             _applicationDbContext.SaveChanges();
         }
 
-        public Tokens Authenticate(Users usersrole)
+        public UserModel Authenticate(Users usersrole)
         {
-            if(!_applicationDbContext.users.Any(x=>x.userName==usersrole.userName && x.password== usersrole.password))
+            Users checkExistinguser = _applicationDbContext.users.Where(x => x.userName == usersrole.userName && x.password == usersrole.password).FirstOrDefault();
+            
+            if (checkExistinguser == null)
             {
                 return null;
             }
+            UserModel existingUsermodel = new UserModel();
+
             var tokenHandler = new JwtSecurityTokenHandler();
             var tokenkey = Encoding.UTF8.GetBytes(iconfiguration["JWT:Key"]);
             var tokenDescriptor = new SecurityTokenDescriptor
@@ -51,10 +55,13 @@ namespace RepositoryLayer.Repository
                     new Claim(ClaimTypes.Name, usersrole.userName)
                 }),
                 Expires = DateTime.UtcNow.AddMinutes(10),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenkey),SecurityAlgorithms.HmacSha256Signature)
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenkey), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
-            return new Tokens { Token = tokenHandler.WriteToken(token) };
+            existingUsermodel.userName = checkExistinguser.userName;
+            existingUsermodel.token = tokenHandler.WriteToken(token);
+            existingUsermodel.role = checkExistinguser.role.ToString();
+            return existingUsermodel;  
         }
 
         public void SaveChanges()
@@ -66,16 +73,16 @@ namespace RepositoryLayer.Repository
 
 
 //public void login(T login)
-        //{
-        //    if (login == null)
-        //    {
-        //        throw new ArgumentException("login");
-        //    }
-        //    role.Add(login);
-        //    _applicationDbContext.SaveChanges();
-        //}
+//{
+//    if (login == null)
+//    {
+//        throw new ArgumentException("login");
+//    }
+//    role.Add(login);
+//    _applicationDbContext.SaveChanges();
+//}
 
-        //public void SaveChanges()
-        //{
-        //    _applicationDbContext.SaveChanges();
-        //}
+//public void SaveChanges()
+//{
+//    _applicationDbContext.SaveChanges();
+//}

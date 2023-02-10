@@ -1,6 +1,7 @@
 ﻿using Domain_Layer.Data;
 using DomainLayer.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Presentations.Common;
 using Presentations.Models;
@@ -11,6 +12,8 @@ namespace Presentations.Controllers
     public class DashboardController : Controller
     {
         private readonly string _sPostEndPoint = "Dashbord";
+        //private readonly string _sPostEndPoints = "Tenant/tenantrent";
+        private readonly string _sPostEndPoints = "PropertyInfo";
         private readonly IConfiguration _configuration;
         private readonly IHttpContextAccessor _httpContextAccessor;
         public DashboardController(IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
@@ -19,18 +22,49 @@ namespace Presentations.Controllers
             _httpContextAccessor = httpContextAccessor;
         }
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index()           
         {
             HttpHelper<DashbordModel> httpHelper = new HttpHelper<DashbordModel>(_configuration, _httpContextAccessor);
             var dashbord = httpHelper.GetRequest<ResponseResultAdmin<List<DashbordModel>>>(_sPostEndPoint).Result;
             if (dashbord != null)
             {
+                List<UpcomingRent> upcomingRents = new List<UpcomingRent>
+                {
+                    new UpcomingRent
+                    {
+                        propertytitle = "Ace Real Estate",
+                        tenantname ="Silas Tenant",
+                        startDate = Convert.ToDateTime("01/02/2023"),
+                        endDate = Convert.ToDateTime("10/02/2023"),
+                        rentamount = "1000",
+                        status = "active"
+                    },
+                    new UpcomingRent
+                    {
+                        propertytitle = "Real Estate",
+                        tenantname ="Joseph Tenant",
+                        startDate = Convert.ToDateTime("02/02/2023"),
+                        endDate = Convert.ToDateTime("12/02/2023"),
+                        rentamount = "1500",
+                        status = "active"
+                    },
+                    new UpcomingRent
+                    {
+                        propertytitle = "Kale Realty",
+                        tenantname ="Mary Smith",
+                        startDate = Convert.ToDateTime("02/08/2023"),
+                        endDate = Convert.ToDateTime("02/20/2023"),
+                        rentamount = "1700",
+                        status = "active"
+                    }
+                };
+                ViewBag.property = upcomingRents;
                 DashbordModel result = new DashbordModel
                 {
                     property = 3,
-                    avilable=4,
-                    rent=2,
-                    upcomingrent=2
+                    avilable = 4,
+                    rent = 2,
+                    //upcomingrent = 
                 };
                 ViewData["myproduct"] = result;
                 return View(dashbord.Result);
@@ -39,58 +73,22 @@ namespace Presentations.Controllers
             {
                 return NotFound();
             }
+
+        }
+        public IActionResult TenantRentCount()
+        {
+            HttpHelper<Tenant> httpHelper = new HttpHelper<Tenant>(_configuration, _httpContextAccessor);
+            
+
+            var result = httpHelper.GetRequest<ResponseResultAdmin<List<Tenant>>>(_sPostEndPoints).Result;
+            if (result != null)
+            {
+                return View(result.Result);
+            }
+            else
+            {
+                return NotFound();
+            }
         }
     }
 }
-
-
-
-////var result = _applicationDbContext.propertyInfos.GroupBy(n => n.propertytypeid)
-////            .Select(g => new { CategoryName = g.Key, Count = g.Count() }).ToList();
-////List<PropertyInfo> propList = new List<PropertyInfo>();
-////for (int i = 0; i < result.ToList().Count; i++)
-////{
-////    propList.Add(new PropertyInfo { id = result[i].CategoryName, count= result[i].Count });
-////}
-////return View(propList);
-//return View();
-
-
-//PropertyInfo propertyInfo = new DomainLayer.Models.PropertyInfo();
-//propertyInfo.id = 1;
-//propertyInfo.name = "abc";
-//propertyInfo.name = "def";
-//propertyInfo.name = "xyz";
-
-//var result = _applicationDbContext.propertyInfos
-//.Include("PropertyInfos")
-//.ToList()
-//.GroupBy(e => e.propertytypeid)
-//.Select(y => new 
-//{
-//    Department = y.First().propertytypeid,
-//    count = y.Count()
-//}).ToList();
-//List<PropertyInfo> properties = new List<PropertyInfo>();
-//for (int i = 0; i < result.ToList().Count; i++)
-//{
-//    properties.Add(new PropertyInfo { propertytypeid = result[i].count});
-//}
-//return View(properties);
-
-
-//return View();
-//var result = _applicationDbContext.propertyInfos.Include("Total").Select
-//(pg => new
-//{
-//    Total = pg.name.Count()
-//}).ToList();
-//foreach (var property in result)
-//{
-//    properties.Add(new PropertyInfo()
-//    {
-
-//    });
-//}
-
-//return View(result);
