@@ -1,4 +1,4 @@
-﻿using DomainLayer.Migrations;
+﻿//using DomainLayer.Migrations;
 using DomainLayer.Models;
 using RepositoryLayer.CustomeModel;
 using System;

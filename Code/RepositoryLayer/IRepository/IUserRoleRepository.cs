@@ -13,6 +13,6 @@ namespace RepositoryLayer.IRepository
         void SaveChanges();
         //List<UsersModel> usersModels { get; set; }
         void Add(T user);
-        Tokens Authenticate(Users usersrole);
+        UserModel Authenticate(Users usersrole);
     }
 }

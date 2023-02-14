@@ -4,14 +4,6 @@
         <span class="brand-text font-weight-light">Rental PG</span>
     </a>
     <div class="sidebar">
-        @*<div class="user-panel mt-3 pb-3 mb-3 d-flex">
-            <div class="image">
-                <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-            </div>
-            <div class="info">
-                <a href="#" class="d-block">Alexander Pierce</a>
-            </div>
-        </div>*@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeView" role="menu" data-accordion="false">
                 <li class="nav-item menu-open">
@@ -21,8 +13,6 @@
                             Master
                             <i class="right fas fa-angle-left"></i>
                             <span class="badge badge-info right"></span>
-                          @*  <i class="fas fa-angle-left"></i>
-                            <span class="badge badge-info right"></span>*@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
@@ -49,8 +39,6 @@
                         <p>
                             Property
                             <i class="right fas fa-angle-left"></i>
-                            @*  <i class="fas fa-angle-left"></i>
-                            <span class="badge badge-info right"></span>*@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
@@ -75,6 +63,14 @@
                         <i class="nav-icon fas fa-home"></i>
                         <p>
                             Tenant
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a asp-controller="PropertyInfo" asp-action="Create" class="nav-link">
+                        <i class="nav-icon fas fa-home"></i>
+                        <p>
+                            Addproperty
                         </p>
                     </a>
                 </li>

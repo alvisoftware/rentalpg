@@ -1,5 +1,5 @@
 ﻿using Domain_Layer.Data;
-using DomainLayer.Migrations;
+//using DomainLayer.Migrations;
 using DomainLayer.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;

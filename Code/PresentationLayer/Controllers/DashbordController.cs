@@ -1,5 +1,5 @@
 ﻿using ApiLayer.Common;
-using DomainLayer.Migrations;
+//using DomainLayer.Migrations;
 using DomainLayer.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -31,12 +31,5 @@ namespace ApiLayer.Controllers
         }
     }
 }
-//UpcomingRent upcomingRent = new UpcomingRent();
-//PropertyInfo propertyInfo = new PropertyInfo();
-//upcomingRent.propertytitle = propertyInfo.name;
-//_propertyService.GetAll();
-//RentMaster rentMaster = new RentMaster();
-//upcomingRent.startDate = rentMaster.startdate;
-//upcomingRent.endDate = rentMaster.enddate;
-//upcomingRent.rentamount = rentMaster.amount;
-//_rentMasterService.Insert(rentMaster);
+
+

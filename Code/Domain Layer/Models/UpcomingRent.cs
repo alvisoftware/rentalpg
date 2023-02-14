@@ -10,7 +10,9 @@ namespace DomainLayer.Models
     {
         public string propertytitle { get; set; }
         public string tenantname { get; set; }
+        public string rentamount { get; set; }
         public DateTime startDate { get; set; }
         public DateTime endDate { get; set; }
+        public string status { get; set; }
     }
 }

@@ -1,14 +1,16 @@
 ﻿using Domain_Layer.Models;
 using DomainLayer.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Presentations.Common;
 using RepositoryLayer.Model;
+using System.Security.Claims;
 
 namespace Presentations.Controllers
 {
-    [Authorize (Roles ="Owner")]
+    //[Authorize(Roles = "Owner")]
     public class PropertyInfoController : Controller
     {
         private readonly string _sPostEntPoint = "Propertyinfo";
@@ -27,17 +29,17 @@ namespace Presentations.Controllers
         }
         //PropertyInfo List View
         [HttpGet]
-        public async  Task<IActionResult> Index()
+        public async Task<IActionResult> Index()
         {
             HttpHelper<PropertyInfo> httpHelper = new HttpHelper<PropertyInfo>(_configuration, _httpContextAccessor);
             var propinfo = httpHelper.GetRequest<ResponseResultAdmin<List<PropertyInfo>>>(_sPostEntPoint).Result;
-            if(propinfo != null)
+            if (propinfo != null)
             {
                 return View(propinfo.Result);
             }
             else
             {
-                return NotFound();  
+                return NotFound();
             }
         }
         public async Task<IActionResult> Propertylist()
@@ -79,6 +81,10 @@ namespace Presentations.Controllers
                 {
                     country.Add(new SelectListItem() { Text = item.countryname, Value = Convert.ToString(item.id) });
                 }
+                
+            }
+            if (Countrydropdown.IsSuccess && Countrydropdown.Result != null)
+            {
                 foreach (var item in Countrydropdown.Result)
                 {
                     cityid.Add(new SelectListItem() { Text = item.cityid.ToString(), Value = Convert.ToString(item.id) });
@@ -109,7 +115,7 @@ namespace Presentations.Controllers
             #endregion
             ViewBag.owners = owners;
             ViewBag.country = country;
-            ViewBag.cityid= cityid;
+            ViewBag.cityid = cityid;
             ViewBag.state = state;
             ViewBag.zip = zip;
 
@@ -118,9 +124,16 @@ namespace Presentations.Controllers
         [HttpPost]
         public IActionResult Create(PropertyInfo propertyInfo)
         {
+            if (_httpContextAccessor.HttpContext != null && _httpContextAccessor.HttpContext.Session != null)
+            {
+                string cratedby = _httpContextAccessor.HttpContext.Session.GetString("id");
+                propertyInfo.createdby = cratedby;
+            }
+
+            
             HttpHelper<PropertyInfo> httpHelper = new HttpHelper<PropertyInfo>(_configuration, _httpContextAccessor);
-            ResponseResultAdmin<PropertyInfo> result = httpHelper.PostRequest<PropertyInfo,ResponseResultAdmin<PropertyInfo>>(_sPostEntPoint,propertyInfo).Result;
-            if(result!= null)
+            ResponseResultAdmin<PropertyInfo> result = httpHelper.PostRequest<PropertyInfo, ResponseResultAdmin<PropertyInfo>>(_sPostEntPoint, propertyInfo).Result;
+            if (result != null)
             {
                 TempData["success"] = result;
                 return RedirectToAction("Index", "PropertyInfo");

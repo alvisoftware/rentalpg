@@ -39,16 +39,14 @@ namespace Presentations.Controllers
         public IActionResult Login(Users users)
         {
             HttpHelper<Users> httpHelper = new HttpHelper<Users>(_configuration, _httpContextAccessor);
-            var response = httpHelper.PostRequest<Users, ResponseResultAdmin<string>>(_sPostEndpoint, users).Result;
+            var response = httpHelper.PostRequest<Users, ResponseResultAdmin<UserModel>>(_sPostEndpoint, users).Result;
             if (response != null && response.Result != null)
             {
-                var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, users.userName),
-                    new Claim(ClaimTypes.Role,users.role.ToString())
-                };
-                var claimsIdentity = new ClaimsIdentity(claims, "Login");
-                HttpContext.SignInAsync(new ClaimsPrincipal(claimsIdentity));
+                HttpContext.Session.SetString("username", response.Result.userName.ToString());
+                HttpContext.Session.SetString("role", response.Result.role.ToString());
+                HttpContext.Session.SetString("id", response.Result.id.ToString());
+                HttpContext.Session.SetString("token", response.Result.token.ToString());
+                HttpContext.Session.SetString("role", response.Result.role.ToString());
                 return RedirectToAction("Index", "Home");
             }
             else

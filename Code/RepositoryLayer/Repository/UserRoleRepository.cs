@@ -36,10 +36,15 @@ namespace RepositoryLayer.Repository
             _applicationDbContext.SaveChanges();
         }
 
+        public void SaveChanges()
+        {
+            _applicationDbContext.SaveChanges();
+        }
+
         public UserModel Authenticate(Users usersrole)
         {
             Users checkExistinguser = _applicationDbContext.users.Where(x => x.userName == usersrole.userName && x.password == usersrole.password).FirstOrDefault();
-            
+
             if (checkExistinguser == null)
             {
                 return null;
@@ -59,14 +64,11 @@ namespace RepositoryLayer.Repository
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             existingUsermodel.userName = checkExistinguser.userName;
+            existingUsermodel.name = checkExistinguser.userName;
             existingUsermodel.token = tokenHandler.WriteToken(token);
             existingUsermodel.role = checkExistinguser.role.ToString();
-            return existingUsermodel;  
-        }
-
-        public void SaveChanges()
-        {
-            _applicationDbContext.SaveChanges();
+            existingUsermodel.id = checkExistinguser.id.ToString();
+            return existingUsermodel;
         }
     }
 }

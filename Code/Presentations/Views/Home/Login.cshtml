@@ -21,8 +21,6 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
 </head>
-@*@using (Html.BeginForm("Login","Home",FormMethod.Post))
-{*@
     <body class="hold-transition login-page">
         <div class="login-box">
             <div class="login-logo">
@@ -35,7 +33,7 @@
 
                     <form asp-action="Login" asp-controller="Home">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" asp-for="userName" maxlength="15" placeholder="Username">
+                        <input type="text" id="username" name="username" class="form-control" asp-for="userName" maxlength="15" placeholder="Username">
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-envelope"></span>
@@ -43,7 +41,7 @@
                             </div>
                         </div>
                         <div class="input-group mb-3">
-                        <input type="password" class="form-control" asp-for="password" maxlength="15" placeholder="Password">
+                        <input type="password" id="password" name="password" class="form-control" asp-for="password" maxlength="15" placeholder="Password">
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-lock"></span>
@@ -79,9 +77,6 @@
         <!-- AdminLTE App -->
         <script src="../../dist/js/adminlte.min.js"></script>
     </body>
-
-
-@*}*@
 </html>
 
 <script type="text/javascript">

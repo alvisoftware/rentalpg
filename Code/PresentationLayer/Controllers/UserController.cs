@@ -21,16 +21,17 @@ namespace ApiLayer.Controllers
         {
             try
             {
-                var token = _roleRepository.Authenticate(userRole);
-                if (token == null)
+                UserModel existingModel = new UserModel();
+                existingModel = _roleRepository.Authenticate(userRole);
+                if (existingModel == null)
                 {
                     return Unauthorized();
                 }
-                return Ok(new ResponseResult<string>
+                return Ok(new ResponseResult<UserModel>
                 {
                     IsSuccess = true,
-                    Result = token.Token
-                });
+                    Result = existingModel
+                }); 
             }
             catch (Exception ex)
             {

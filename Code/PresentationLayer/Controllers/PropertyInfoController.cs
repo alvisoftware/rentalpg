@@ -94,7 +94,7 @@ namespace ApiLayer.Controllers
         }
         [HttpPost]
         public async Task<IActionResult> CreateProperty(PropertyInfo property)
-        {
+         {
             try
             {
                 if(property == null)
@@ -107,9 +107,6 @@ namespace ApiLayer.Controllers
                 }
                 else
                 {
-                    CountryTable country = new CountryTable();
-                    country.id = Convert.ToInt32(property.cityid);
-
                     _propertyService.Insert(property);
                     return Ok(new ResponseResult<PropertyInfo>
                     {
