@@ -29,7 +29,7 @@ namespace Domain_Layer.Data
         {
             throw new NotImplementedException();
         }
-
+        public DbSet<CityModel> cities { get; set; }
         public DbSet<CountryTable> countries { get;set; }
         public DbSet<StateTable> states { get; set; }
         public DbSet<ZipCodeTable> zipCodes  { get; set; }

@@ -17,6 +17,7 @@ namespace Presentations.Controllers
         //private readonly string _sPostEndPointproperty = "Propertyinfo";
         private readonly string _sPostEntPointowneres = "Owners";
         private readonly string _sPostEntPointcountry = "Country";
+        private readonly string _sPostEntPointcity = "City";
         private readonly string _sPostEntPointstate = "StateCode";
         private readonly string _sPostEntPointZip = "ZipCode";
         private readonly IConfiguration _configuration;
@@ -74,21 +75,33 @@ namespace Presentations.Controllers
             #region Countrydropdown
             var Countrydropdown = httpHelper.GetRequest<ResponseResultAdmin<List<CountryTable>>>(_sPostEntPointcountry).Result;
             List<SelectListItem> country = new List<SelectListItem>();
-            List<SelectListItem> cityid = new List<SelectListItem>();
+            //List<SelectListItem> cityid = new List<SelectListItem>();
             if (Countrydropdown.IsSuccess && Countrydropdown.Result != null)
             {
                 foreach (var item in Countrydropdown.Result)
                 {
                     country.Add(new SelectListItem() { Text = item.countryname, Value = Convert.ToString(item.id) });
                 }
-                
+
             }
-            if (Countrydropdown.IsSuccess && Countrydropdown.Result != null)
+            //if (Countrydropdown.IsSuccess && Countrydropdown.Result != null)
+            //{
+            //    foreach (var item in Countrydropdown.Result)
+            //    {
+            //        cityid.Add(new SelectListItem() { Text = item.id.ToString(), Value = Convert.ToString(item.id) });
+            //    }
+            //}
+            #endregion
+            #region city
+            var citydropdown = httpHelper.GetRequest<ResponseResultAdmin<List<CityModel>>>(_sPostEntPointcity).Result;
+            List<SelectListItem> city = new List<SelectListItem>();
+            if (citydropdown.IsSuccess && citydropdown.Result != null)
             {
-                foreach (var item in Countrydropdown.Result)
+                foreach (var item in citydropdown.Result)
                 {
-                    cityid.Add(new SelectListItem() { Text = item.cityid.ToString(), Value = Convert.ToString(item.id) });
+                    city.Add(new SelectListItem() { Text = item.cityname, Value = Convert.ToString(item.id) });
                 }
+
             }
             #endregion
             #region statedropdown
@@ -98,7 +111,7 @@ namespace Presentations.Controllers
             {
                 foreach (var item in Statedropdown.Result)
                 {
-                    state.Add(new SelectListItem() { Text = item.statename, Value = Convert.ToString(item.stateid) });
+                    state.Add(new SelectListItem() { Text = item.statename, Value = Convert.ToString(item.id) });
                 }
             }
             #endregion
@@ -115,22 +128,34 @@ namespace Presentations.Controllers
             #endregion
             ViewBag.owners = owners;
             ViewBag.country = country;
-            ViewBag.cityid = cityid;
+            ViewBag.city = city;
             ViewBag.state = state;
             ViewBag.zip = zip;
 
             return View();
         }
         [HttpPost]
-        public IActionResult Create(PropertyInfo propertyInfo)
+        public IActionResult Create(PropertyInfo propertyInfo, IFormCollection keyValuePairs)
         {
             if (_httpContextAccessor.HttpContext != null && _httpContextAccessor.HttpContext.Session != null)
             {
                 string cratedby = _httpContextAccessor.HttpContext.Session.GetString("id");
                 propertyInfo.createdby = cratedby;
             }
-
             
+            if (!string.IsNullOrEmpty(Convert.ToString(keyValuePairs["ddlowner"])))
+            {
+                propertyInfo.ownerid = Convert.ToInt64(keyValuePairs["ddlowner"]);
+            }
+            //if (!string.IsNullOrEmpty(Convert.ToString(keyValuePairs["ddlcountry"])))
+            //{
+            //    propertyInfo.cityid = Convert.ToInt64(keyValuePairs["ddlcountry"]);
+            //}
+            //if (!string.IsNullOrEmpty(Convert.ToString(keyValuePairs["ddlsateid"])))
+            //{
+            //    propertyInfo.stateid = Convert.ToInt64(keyValuePairs["ddlsateid"]);
+            //}
+
             HttpHelper<PropertyInfo> httpHelper = new HttpHelper<PropertyInfo>(_configuration, _httpContextAccessor);
             ResponseResultAdmin<PropertyInfo> result = httpHelper.PostRequest<PropertyInfo, ResponseResultAdmin<PropertyInfo>>(_sPostEntPoint, propertyInfo).Result;
             if (result != null)

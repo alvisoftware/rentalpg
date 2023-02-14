@@ -48,6 +48,7 @@ builder.Services.AddScoped(typeof(IRentMasterRepository<>), typeof(RentMasterRep
 builder.Services.AddScoped(typeof(IRentTableRepository<>), typeof(RentTableRepository<>));
 builder.Services.AddScoped(typeof(IUserRoleRepository<>), typeof(UserRoleRepository<>));
 builder.Services.AddScoped(typeof(ICountryRepository<>), typeof(CountryRepository<>));
+builder.Services.AddScoped(typeof(ICityRepository<>), typeof(CityRepository<>));
 builder.Services.AddScoped(typeof(IZipCodeRepository<>), typeof(ZipCodeRepository<>));
 builder.Services.AddScoped(typeof(IStateRepository<>), typeof(StateCodeRepository<>));
 builder.Services.AddScoped(typeof(IDashbordRepository<>), typeof(DashbordRepository<>));
@@ -66,6 +67,7 @@ builder.Services.AddScoped<IRentMasterService<RentMaster>, RentMasterService>();
 builder.Services.AddScoped<IRentTableService<RentDetails>, RentTableService>();
 builder.Services.AddScoped<IUserRoleService<Users>, UserRoleService>();
 builder.Services.AddScoped<ICountryService<CountryTable>, CountryService>();
+builder.Services.AddScoped<ICityService<CityModel>, CityService>();
 builder.Services.AddScoped<IStateCodeService<StateTable>, StateCodeService>();
 builder.Services.AddScoped<IZipCodeService<ZipCodeTable>, ZipCodeService>();
 builder.Services.AddScoped<IDashbordService<DashbordModel>, DashbordService>();

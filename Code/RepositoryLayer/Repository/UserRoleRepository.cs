@@ -41,9 +41,9 @@ namespace RepositoryLayer.Repository
             _applicationDbContext.SaveChanges();
         }
 
-        public UserModel Authenticate(Users usersrole)
+        public UserModel Authenticate(Users users)
         {
-            Users checkExistinguser = _applicationDbContext.users.Where(x => x.userName == usersrole.userName && x.password == usersrole.password).FirstOrDefault();
+            Users checkExistinguser = _applicationDbContext.users.Where(x => x.userName == users.userName && x.password == users.password).FirstOrDefault();
 
             if (checkExistinguser == null)
             {
@@ -57,7 +57,7 @@ namespace RepositoryLayer.Repository
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, usersrole.userName)
+                    new Claim(ClaimTypes.Name, users.userName)
                 }),
                 Expires = DateTime.UtcNow.AddMinutes(10),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenkey), SecurityAlgorithms.HmacSha256Signature)

@@ -9,7 +9,7 @@ namespace DomainLayer.Models
 {
     public class CountryTable:BaseEntity
     {
-        public int cityid { get; set; }
+       
         public string countryname { get; set; }
     }
 }

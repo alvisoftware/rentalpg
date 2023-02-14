@@ -18,11 +18,13 @@ namespace DomainLayer.Models
         public string address2 { get; set; }
         public long cityid { get; set; }
         [ForeignKey("cityid")]
+        public virtual CityModel CityModel { get; set; }
+        public long countryid { get; set; }
+        [ForeignKey("country")]
         public virtual CountryTable CountryTable { get; set; }
         public long stateid { get; set; }
         [ForeignKey("stateid")]
         public virtual StateTable StateTable { get; set; }
-        public string country { get; set; }
         public string zip { get; set; }
         public string description { get; set; }
         public string specification { get; set; }

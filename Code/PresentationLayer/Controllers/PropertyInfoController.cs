@@ -94,7 +94,7 @@ namespace ApiLayer.Controllers
         }
         [HttpPost]
         public async Task<IActionResult> CreateProperty(PropertyInfo property)
-         {
+        {
             try
             {
                 if(property == null)

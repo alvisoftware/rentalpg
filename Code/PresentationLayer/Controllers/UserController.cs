@@ -17,12 +17,12 @@ namespace ApiLayer.Controllers
 
         [HttpPost]
         [Route("Authenticate")]
-        public async Task<IActionResult> Authenticate(Users userRole)
+        public async Task<IActionResult> Authenticate(Users users)
         {
             try
             {
                 UserModel existingModel = new UserModel();
-                existingModel = _roleRepository.Authenticate(userRole);
+                existingModel = _roleRepository.Authenticate(users);
                 if (existingModel == null)
                 {
                     return Unauthorized();

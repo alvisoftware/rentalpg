@@ -3,6 +3,7 @@
 using DomainLayer.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using RepositoryLayer.CustomeModel;
 using RepositoryLayer.IRepository;
 using RepositoryLayer.Model;
@@ -18,14 +19,19 @@ namespace RepositoryLayer.Repository
     {
         private readonly ApplicationDbContext _applicationDbContext;
         private DbSet<T> entites;
-        public DashbordModel DashbordModel()
+        public DashbordModel DashbordModel(long ownerid)
         {
-            return new DashbordModel();
+            int availableProperty = _applicationDbContext.propertyInfos.Where(x => x.ownerid == ownerid).Count() ;
+            return new DashbordModel() {  avilable=availableProperty};
         }
     }
 }
 
-
+//var check = _applicationDbContext.users.Where(x => x.role == Users.userrole.admin);
+//if (check != null)
+//{
+//    return null;
+//}
 
 //List<PropertyInfo> result = _applicationDbContext.propertyInfos.GroupBy(t => t.propertytypeid)
 //                .Select(t => new PropertyInfo

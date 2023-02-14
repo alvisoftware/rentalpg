@@ -9,7 +9,7 @@ namespace DomainLayer.Models
 {
     public class ZipCodeTable:BaseEntity
     {
-        public int zipid { get; set; }
+        
         public string zipcode { get; set; }
     }
 }

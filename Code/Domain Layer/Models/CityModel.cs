@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace DomainLayer.Models
 {
-    public class StateTable:BaseEntity
+    public class CityModel:BaseEntity
     {
-
-        public string statename { get; set; }
+        public string cityname { get; set; }
     }
 }
