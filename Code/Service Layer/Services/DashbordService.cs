@@ -16,9 +16,9 @@ namespace Service_Layer.Services
         {
             _dashbord= dashbordRepository;
         }
-        public DashbordModel DashbordModel(long createdby)
+        public DashbordModel DashbordModel(long ownerid)
         {
-            return _dashbord.DashbordModel(createdby);
+            return _dashbord.DashbordModel(ownerid);
         }
     }
 }

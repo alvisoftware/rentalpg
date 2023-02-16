@@ -1,13 +1,8 @@
-﻿@using RepositoryLayer.CustomeModel;
-@model IEnumerable<DomainLayer.Models.UpcomingRent>
+﻿@model IEnumerable<RepositoryLayer.CustomeModel.DashbordModel>
 
 @{
     ViewData["Title"] = "Dashbord";
     Layout = "~/Views/Shared/AdminLTE/_Layout.cshtml";
-}
-@{
-    var prod = (DashbordModel)ViewData["myproduct"];
-    //var result = (TenantRentModel)ViewData["property"];
 }
 
 <div class="row">
@@ -15,7 +10,7 @@
         <!-- small box -->
         <div class="small-box bg-info">
             <div class="inner">
-                <h3>@prod.property</h3>
+                <h3>@Model.FirstOrDefault().avilable</h3>
                 <p>Totoal Poperty</p>
             </div>
             <div class="icon">
@@ -25,26 +20,12 @@
         </div>
     </div>
     <!-- ./col -->
-    <div class="col-lg-3 col-6">
-        <!-- small box -->
-        <div class="small-box bg-success">
-            <div class="inner">
-                <h3>@prod.avilable<sup style="font-size: 20px"></sup></h3>
-
-                <p>Total Available property</p>
-            </div>
-            <div class="icon">
-                <i class="ion ion-stats-bars"></i>
-            </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-        </div>
-    </div>
     <!-- ./col -->
     <div class="col-lg-3 col-6">
         <!-- small box -->
         <div class="small-box bg-warning">
             <div class="inner">
-                <h3>@prod.rent</h3>
+                <h3>@Model.FirstOrDefault().rent</h3>
 
                 <p>Rented Property</p>
             </div>
@@ -54,41 +35,16 @@
             <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
         </div>
     </div>
-    <div class="col-lg-3 col-6">
-        <!-- small box -->
-        <div class="small-box bg-danger">
-            <div class="inner">
-                <h3>@prod.upcomingrent</h3>
-
-                <p>Pendin Rent</p>
-            </div>
-            <div class="icon">
-                <i class="ion ion-pie-graph"></i>
-            </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-        </div>
-    </div>
 </div>
 
 <table class="table table-condensed table-hover">
-    <thead>
-        <tr>
-            <th>@Html.DisplayNameFor(e => e.propertytitle)</th>
-            <th>@Html.DisplayNameFor(e => e.tenantname)</th>
-            <th>@Html.DisplayNameFor(e => e.startDate)</th>
-            <th>@Html.DisplayNameFor(e => e.endDate)</th>
-            <th>@Html.DisplayNameFor(e => e.rentamount)</th>
-            <th>@Html.DisplayNameFor(e => e.status)</th>
-        </tr>
-    </thead>
     <tbody>
-        @foreach (var item in ViewBag.property)
+        @foreach (var item in Model.FirstOrDefault().upcomingrent)
         {
             <tr>
-                <td>@item.propertytitle</td>
-                <td>@item.tenantname</td>
-                <td>@item.startDate</td>
-                <td>@item.endDate</td>
+                <td>@item.propertyname</td>
+                <td>@item.startdate</td>
+                <td>@item.enddate</td>
                 <td>@item.rentamount</td>
                 <td>@item.status</td>
             </tr>

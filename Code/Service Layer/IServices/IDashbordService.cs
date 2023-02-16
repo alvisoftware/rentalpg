@@ -9,6 +9,6 @@ namespace Service_Layer.IServices
 {
     public interface IDashbordService<T>  where T : class
     {
-        DashbordModel DashbordModel(long createedby);
+        DashbordModel DashbordModel(long ownerid);
     }
 }

@@ -75,7 +75,6 @@ namespace Presentations.Controllers
             #region Countrydropdown
             var Countrydropdown = httpHelper.GetRequest<ResponseResultAdmin<List<CountryTable>>>(_sPostEntPointcountry).Result;
             List<SelectListItem> country = new List<SelectListItem>();
-            //List<SelectListItem> cityid = new List<SelectListItem>();
             if (Countrydropdown.IsSuccess && Countrydropdown.Result != null)
             {
                 foreach (var item in Countrydropdown.Result)
@@ -84,13 +83,6 @@ namespace Presentations.Controllers
                 }
 
             }
-            //if (Countrydropdown.IsSuccess && Countrydropdown.Result != null)
-            //{
-            //    foreach (var item in Countrydropdown.Result)
-            //    {
-            //        cityid.Add(new SelectListItem() { Text = item.id.ToString(), Value = Convert.ToString(item.id) });
-            //    }
-            //}
             #endregion
             #region city
             var citydropdown = httpHelper.GetRequest<ResponseResultAdmin<List<CityModel>>>(_sPostEntPointcity).Result;
@@ -147,14 +139,18 @@ namespace Presentations.Controllers
             {
                 propertyInfo.ownerid = Convert.ToInt64(keyValuePairs["ddlowner"]);
             }
-            //if (!string.IsNullOrEmpty(Convert.ToString(keyValuePairs["ddlcountry"])))
-            //{
-            //    propertyInfo.cityid = Convert.ToInt64(keyValuePairs["ddlcountry"]);
-            //}
-            //if (!string.IsNullOrEmpty(Convert.ToString(keyValuePairs["ddlsateid"])))
-            //{
-            //    propertyInfo.stateid = Convert.ToInt64(keyValuePairs["ddlsateid"]);
-            //}
+            if (!string.IsNullOrEmpty(Convert.ToString(keyValuePairs["ddlcountry"])))
+            {
+                propertyInfo.countryid = Convert.ToInt64(keyValuePairs["ddlcountry"]);
+            }
+            if (!string.IsNullOrEmpty(Convert.ToString(keyValuePairs["ddlsateid"])))
+            {
+                propertyInfo.stateid = Convert.ToInt64(keyValuePairs["ddlsateid"]);
+            }
+            if (!string.IsNullOrEmpty(Convert.ToString(keyValuePairs["ddlcity"])))
+            {
+                propertyInfo.cityid = Convert.ToInt64(keyValuePairs["ddlcity"]);
+            }
 
             HttpHelper<PropertyInfo> httpHelper = new HttpHelper<PropertyInfo>(_configuration, _httpContextAccessor);
             ResponseResultAdmin<PropertyInfo> result = httpHelper.PostRequest<PropertyInfo, ResponseResultAdmin<PropertyInfo>>(_sPostEntPoint, propertyInfo).Result;

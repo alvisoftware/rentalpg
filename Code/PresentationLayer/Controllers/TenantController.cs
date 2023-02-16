@@ -3,7 +3,11 @@ using Domain_Layer.Data;
 using DomainLayer.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Service_Layer.IServices;
+using System.ComponentModel.DataAnnotations;
+using System.Security;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Model;
 
 namespace ApiLayer.Controllers
 {
@@ -13,9 +17,11 @@ namespace ApiLayer.Controllers
     {
         private readonly ITenantService<Tenant> _tenantService;
         private readonly ApplicationDbContext _applicationDbContext;
-        public TenantController(ITenantService<Tenant> tenantService, ApplicationDbContext applicationDbContext)
+        public readonly IUserRoleService<Users> _userRoleService;
+        public TenantController(IUserRoleService<Users> userRoleService,ITenantService<Tenant> tenantService, ApplicationDbContext applicationDbContext)
         {
             _tenantService = tenantService;
+            _userRoleService = userRoleService;
             _applicationDbContext = applicationDbContext;
         }
         [HttpGet]
@@ -91,6 +97,15 @@ namespace ApiLayer.Controllers
                 }
                 else
                 {
+                    if (ModelState.IsValid)
+                    {
+                        Users user = new Users();
+                        user.id = tenant.id;
+                        user.userName = tenant.firsttname + ' ' + tenant.lasttname;
+                        user.password = tenant.lasttname;
+                        user.role = Users.userrole.tenant;
+                        _userRoleService.Add(user);
+                    }
                     _tenantService.insert(tenant);
                     return Ok(new ResponseResult<Tenant>
                     {

@@ -24,9 +24,9 @@ namespace ApiLayer.Controllers
             _rentMasterService = rentMasterService;
         }
         [HttpGet]
-        public async Task<IActionResult> Propertycount(long createdby)
-        {            
-            var results = _dashbordService.DashbordModel(createdby);
+        public async Task<IActionResult> Propertycount(long oId)
+        {
+            var results = _dashbordService.DashbordModel(oId);
             return Ok(results);
         }
     }

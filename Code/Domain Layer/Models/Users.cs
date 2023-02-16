@@ -13,7 +13,7 @@ namespace DomainLayer.Models
         //public string user { get; set; }
         public string userName { get; set; }
         public string password { get; set; }
-        public userrole role { get; set; } //0=Admin /1=Owner /2=Tenant
+        public userrole role { get; set; } /*= userrole.tenant;*/ //0=Admin /1=Owner /2=Tenant
         public enum userrole
         {
             admin=0,

@@ -51,8 +51,7 @@ namespace RepositoryLayer.Repository
             entites.Add(entity);
             _applicationDbContext.SaveChanges();
         }
-
-        public void SaveChanges()
+        public void SaveChnages()
         {
             _applicationDbContext.SaveChanges();
         }

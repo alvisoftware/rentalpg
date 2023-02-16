@@ -18,50 +18,27 @@ namespace RepositoryLayer.Repository
     public class DashbordRepository<T> : IDashbordRepository<T> where T : class
     {
         private readonly ApplicationDbContext _applicationDbContext;
-        private DbSet<T> entites;
+
+        public DashbordRepository(ApplicationDbContext applicationDbContext)
+        {
+            _applicationDbContext = applicationDbContext;
+        }
+
         public DashbordModel DashbordModel(long ownerid)
         {
-            int availableProperty = _applicationDbContext.propertyInfos.Where(x => x.ownerid == ownerid).Count() ;
-            return new DashbordModel() {  avilable=availableProperty};
+            long availableProperty = _applicationDbContext.propertyInfos.Where(x => x.ownerid == ownerid).Count();
+            int rentedProperty = 1;
+            List<TenantRentModel> upcomingRent = new List<TenantRentModel>();
+            upcomingRent.Add(new TenantRentModel() 
+            { 
+                propertyname="abc",rentamount="1000",startdate=Convert.ToDateTime("01/02/2023"),enddate=Convert.ToDateTime("10/02/2023"),status="available"
+            });
+            return new DashbordModel()
+            {
+                avilable = Convert.ToInt32(availableProperty),
+                rent = rentedProperty,
+                upcomingrent = upcomingRent
+            };
         }
     }
 }
-
-//var check = _applicationDbContext.users.Where(x => x.role == Users.userrole.admin);
-//if (check != null)
-//{
-//    return null;
-//}
-
-//List<PropertyInfo> result = _applicationDbContext.propertyInfos.GroupBy(t => t.propertytypeid)
-//                .Select(t => new PropertyInfo
-//                {
-//                    propertytypeid = t.Key,
-//                    count = t.Key + "Totoal Property" + t.Count().
-//                });
-
-//var result = _applicationDbContext.propertyInfos.Join(
-//_applicationDbContext.propertyInfos,
-//(property) => new DashbordModel
-//{
-//        property = property.propertytypeid.ToString()
-//});
-
-//return result;
-
-//var result = _applicationDbContext.propertyInfos.Include("PropertyInfos")
-//        .ToList()
-//        .GroupBy(e => e.propertytypeid).Select(y => new
-//        {
-//            totalproperty = y.First().propertytypeid,
-//            count = y.Count()
-//        }).ToList();
-
-//var result = _applicationDbContext.propertyInfos.GroupBy(n => n.propertytypeid)
-//            .Select(g => new { CategoryName = g.Key, Count = g.Count() }).ToList();
-//List<PropertyInfo> propList = new List<PropertyInfo>();
-//for (int i = 0; i < result.ToList().Count; i++)
-//{
-//    propList.Add(new PropertyInfo { id = result[i].CategoryName, count = result[i].Count });
-//}
-//return result;

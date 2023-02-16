@@ -20,7 +20,7 @@ namespace DomainLayer.Models
         [ForeignKey("cityid")]
         public virtual CityModel CityModel { get; set; }
         public long countryid { get; set; }
-        [ForeignKey("country")]
+        [ForeignKey("countryid")]
         public virtual CountryTable CountryTable { get; set; }
         public long stateid { get; set; }
         [ForeignKey("stateid")]

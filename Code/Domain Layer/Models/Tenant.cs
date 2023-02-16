@@ -9,7 +9,7 @@ namespace DomainLayer.Models
 {
     public class Tenant:BaseEntity
     {
-        public long id { get; set; }
+        //public long id { get; set; }
         public string firsttname { get; set; }
         public string lasttname { get; set; }
         public string email { get; set; }

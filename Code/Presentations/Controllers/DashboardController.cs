@@ -22,51 +22,17 @@ namespace Presentations.Controllers
             _httpContextAccessor = httpContextAccessor;
         }
         [HttpGet]
-        public IActionResult Index()           
+        public IActionResult Index()
         {
+            long ownerId = 0;
+            if (_httpContextAccessor.HttpContext != null && _httpContextAccessor.HttpContext.Session != null)
+            {
+                ownerId = Convert.ToInt64(_httpContextAccessor.HttpContext.Session.GetString("id"));
+            }
             HttpHelper<DashbordModel> httpHelper = new HttpHelper<DashbordModel>(_configuration, _httpContextAccessor);
-            var dashbord = httpHelper.GetRequest<ResponseResultAdmin<List<DashbordModel>>>(_sPostEndPoint).Result;
+            var dashbord = httpHelper.GetRequest<ResponseResultAdmin<DashbordModel>>(_sPostEndPoint + "?oId=" + ownerId).Result;
             if (dashbord != null)
             {
-                List<UpcomingRent> upcomingRents = new List<UpcomingRent>
-                {
-                    new UpcomingRent
-                    {
-                        propertytitle = "Ace Real Estate",
-                        tenantname ="Silas Tenant",
-                        startDate = Convert.ToDateTime("01/02/2023"),
-                        endDate = Convert.ToDateTime("10/02/2023"),
-                        rentamount = "1000",
-                        status = "active"
-                    },
-                    new UpcomingRent
-                    {
-                        propertytitle = "Real Estate",
-                        tenantname ="Joseph Tenant",
-                        startDate = Convert.ToDateTime("02/02/2023"),
-                        endDate = Convert.ToDateTime("12/02/2023"),
-                        rentamount = "1500",
-                        status = "active"
-                    },
-                    new UpcomingRent
-                    {
-                        propertytitle = "Kale Realty",
-                        tenantname ="Mary Smith",
-                        startDate = Convert.ToDateTime("02/08/2023"),
-                        endDate = Convert.ToDateTime("02/20/2023"),
-                        rentamount = "1700",
-                        status = "active"
-                    }
-                };
-                ViewBag.property = upcomingRents;
-                DashbordModel result = new DashbordModel
-                {
-                    property = 3,
-                    avilable = 4,
-                    rent = 2,
-                    //upcomingrent = 
-                };
-                ViewData["myproduct"] = result;
                 return View(dashbord.Result);
             }
             else
@@ -78,8 +44,6 @@ namespace Presentations.Controllers
         public IActionResult TenantRentCount()
         {
             HttpHelper<Tenant> httpHelper = new HttpHelper<Tenant>(_configuration, _httpContextAccessor);
-            
-
             var result = httpHelper.GetRequest<ResponseResultAdmin<List<Tenant>>>(_sPostEndPoints).Result;
             if (result != null)
             {

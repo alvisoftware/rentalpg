@@ -58,31 +58,3 @@ namespace Presentations.Controllers
 
     }
 }
-
-//foreach (int i in Enum.GetValues(typeof(userrole)))
-//{
-//    string role = Enum.GetName(typeof(userrole), i);
-//    NewObject thing = new NewObject
-//    {
-//        role = 1,
-//        Number = i
-//    };
-//}
-
-
-//HttpHelper<UserModel> httpHelper = new HttpHelper<UserModel>(_configuration, _httpContextAccessor);
-//var response = httpHelper.PostRequest<UserModel, ResponseResultAdmin<string>>(_sPostEndpoint, userModel).Result;
-//if (response != null && response.Result != null)
-//{
-//    var claims = new List<Claim>
-//                 {
-//                     new Claim(ClaimTypes.Name, userModel.userName),
-//                 };
-//    var claimsIdentity = new ClaimsIdentity(claims, "Login");
-//    HttpContext.SignInAsync(new ClaimsPrincipal(claimsIdentity));
-//    return RedirectToAction("Index", "Home");
-//}
-//else
-//{
-//    return View();
-//}

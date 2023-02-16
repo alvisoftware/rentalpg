@@ -7,6 +7,7 @@ using Microsoft.Extensions.Localization;
 using Service_Layer.Services;
 using Service_Layer.IServices;
 using DomainLayer.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace PresentationLayer.Controllers
 {
@@ -77,7 +78,7 @@ namespace PresentationLayer.Controllers
                     user.id = owners.id;
                     user.userName = owners.email;
                     user.password = owners.password;
-                    //user.role =  ;
+                    user.role =  Users.userrole.owner;
                     _userRoleService.Add(user);
 
                     _ownerService.Insert(owners);
