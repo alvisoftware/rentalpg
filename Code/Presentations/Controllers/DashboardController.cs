@@ -25,12 +25,14 @@ namespace Presentations.Controllers
         public IActionResult Index()
         {
             long ownerId = 0;
+            string role=string.Empty;
             if (_httpContextAccessor.HttpContext != null && _httpContextAccessor.HttpContext.Session != null)
             {
                 ownerId = Convert.ToInt64(_httpContextAccessor.HttpContext.Session.GetString("id"));
+                role = _httpContextAccessor.HttpContext.Session.GetString("role");
             }
             HttpHelper<DashbordModel> httpHelper = new HttpHelper<DashbordModel>(_configuration, _httpContextAccessor);
-            var dashbord = httpHelper.GetRequest<ResponseResultAdmin<DashbordModel>>(_sPostEndPoint + "?oId=" + ownerId).Result;
+            var dashbord = httpHelper.GetRequest<ResponseResultAdmin<DashbordModel>>(_sPostEndPoint + "?oId=" + ownerId+"&role="+role).Result;
             if (dashbord != null)
             {
                 return View(dashbord.Result);

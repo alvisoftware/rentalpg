@@ -11,14 +11,14 @@ using System.Threading.Tasks;
 
 namespace RepositoryLayer.Repository
 {
-    public class TenantRepository<T>:ITenantRepository<T> where T : class
+    public class TenantRepository<T> : ITenantRepository<T> where T : class
     {
         private readonly ApplicationDbContext _applicationDbContext;
         private DbSet<T> entites;
         public TenantRepository(ApplicationDbContext applicationDbContext)
         {
-            _applicationDbContext= applicationDbContext;
-            entites= _applicationDbContext.Set<T>();
+            _applicationDbContext = applicationDbContext;
+            entites = _applicationDbContext.Set<T>();
         }
 
         public IEnumerable<T> GetAll()
@@ -36,10 +36,24 @@ namespace RepositoryLayer.Repository
             return entites.AsEnumerable();
         }
 
-        public IEnumerable<T> GetTenantRent()
+        public IEnumerable<RentSchedules> GetTenantRent(long tenantId = 0)
         {
-
-            return entites.AsEnumerable();
+            var tenantRent = (from rm in _applicationDbContext.rentMasters
+                              join rd in _applicationDbContext.rentTables on rm.id equals rd.rentid
+                              join pi in _applicationDbContext.propertyInfos on rm.propertyid equals pi.id
+                              join te in _applicationDbContext.tenants on rm.tenantid equals te.id
+                              where rm.tenantid == tenantId
+                              select new RentSchedules
+                              {
+                                  propertytitle = pi.name,
+                                  rentamount = rd.amount,
+                                  tenantname = te.firsttname+' '+te.lasttname,
+                                  status = rd.ispaid ? "Paid" : "Unpaid",
+                                  startDate = rd.startdate,
+                                  endDate = rd.enddate
+                              }
+                            );
+            return tenantRent.AsEnumerable();
         }
 
         public void insert(T entity)

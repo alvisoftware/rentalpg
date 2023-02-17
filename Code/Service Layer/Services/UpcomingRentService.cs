@@ -9,15 +9,15 @@ using System.Threading.Tasks;
 
 namespace Service_Layer.Services
 {
-    public class UpcomingRentService : IUpcomingRentService<UpcomingRent>
+    public class UpcomingRentService : IUpcomingRentService<RentSchedules>
     {
-        private readonly IUpcomingRentRepository<UpcomingRent> _upcomingRent;
-        public UpcomingRentService(IUpcomingRentRepository<UpcomingRent> upcomingRent)
+        private readonly IUpcomingRentRepository<RentSchedules> _upcomingRent;
+        public UpcomingRentService(IUpcomingRentRepository<RentSchedules> upcomingRent)
         {
             _upcomingRent = upcomingRent;
         }
 
-        public List<UpcomingRent> GetUpcomingRent()
+        public List<RentSchedules> GetUpcomingRent()
         {
             return _upcomingRent.GetUpcomingRentList();
         }

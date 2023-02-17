@@ -1,4 +1,5 @@
 ﻿using Domain_Layer.Models;
+using DomainLayer.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace Service_Layer.IServices
     public interface IOwnerService<T> where T : class
     {
         IEnumerable<T> GetAll();
+        IEnumerable<RentSchedules> GetOwnerRent(long ownerid);
         T Get(int id);
         void Insert(T owners);
         void Update(T owners);

@@ -71,7 +71,7 @@ builder.Services.AddScoped<ICityService<CityModel>, CityService>();
 builder.Services.AddScoped<IStateCodeService<StateTable>, StateCodeService>();
 builder.Services.AddScoped<IZipCodeService<ZipCodeTable>, ZipCodeService>();
 builder.Services.AddScoped<IDashbordService<DashbordModel>, DashbordService>();
-builder.Services.AddScoped<IUpcomingRentService<UpcomingRent>, UpcomingRentService>();
+builder.Services.AddScoped<IUpcomingRentService<RentSchedules>, UpcomingRentService>();
 
 builder.Services.AddSingleton<Microsoft.AspNetCore.Http.IHttpContextAccessor, Microsoft.AspNetCore.Http.HttpContextAccessor>();
 var app = builder.Build();

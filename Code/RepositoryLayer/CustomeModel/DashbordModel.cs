@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DomainLayer.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,6 @@ namespace RepositoryLayer.CustomeModel
         public int property { get; set; }
         public int avilable { get; set; }
         public int rent { get; set; }
-        public List<TenantRentModel> upcomingrent { get; set; }
+        public List<RentSchedules> upcomingrent { get; set; }
     }
 }

@@ -11,6 +11,6 @@ namespace Service_Layer.IServices
     {
         IEnumerable<T> GetAll();
         void insert(T entity);
-        IEnumerable<T> TenantRent();
+        IEnumerable<RentSchedules> TenantRent(long tenentId);
     }
 }

@@ -46,7 +46,7 @@ namespace Presentations.Controllers
                 HttpContext.Session.SetString("role", response.Result.role.ToString());
                 HttpContext.Session.SetString("id", response.Result.id.ToString());
                 HttpContext.Session.SetString("token", response.Result.token.ToString());
-                HttpContext.Session.SetString("role", response.Result.role.ToString());
+                HttpContext.Session.SetString("name", response.Result.name.ToString());
                 return RedirectToAction("Index", "Home");
             }
             else

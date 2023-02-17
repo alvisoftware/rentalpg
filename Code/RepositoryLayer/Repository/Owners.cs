@@ -1,5 +1,6 @@
 ﻿using Domain_Layer.Data;
 using Domain_Layer.Models;
+using DomainLayer.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using RepositoryLayer.CustomeModel;
@@ -74,6 +75,26 @@ namespace RepositoryLayer.Repository
         List<OwnerBackendModel> IOwnerRepository<T>.GetOwnerRemainProperty()
         {
             throw new NotImplementedException();
+        }
+
+        public IEnumerable<RentSchedules> GetOwnerRent(long ownerid = 0)
+        {
+            var ownerRent = (from rm in _applicationDbContext.rentMasters
+                              join rd in _applicationDbContext.rentTables on rm.id equals rd.rentid
+                              join pi in _applicationDbContext.propertyInfos on rm.propertyid equals pi.id
+                              join te in _applicationDbContext.tenants on rm.tenantid equals te.id
+                              where rm.ownerid == ownerid
+                            select new RentSchedules
+                              {
+                                  propertytitle = pi.name,
+                                  rentamount = rd.amount,
+                                  tenantname = te.firsttname + ' ' + te.lasttname,
+                                  status = rd.ispaid ? "Paid" : "Unpaid",
+                                  startDate = rd.startdate,
+                                  endDate = rd.enddate
+                              }
+                            );
+            return ownerRent.AsEnumerable();
         }
     }
 }

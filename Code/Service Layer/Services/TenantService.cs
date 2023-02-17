@@ -46,9 +46,9 @@ namespace Service_Layer.Services
             }
         }
 
-        public IEnumerable<Tenant> TenantRent()
+        public IEnumerable<RentSchedules> TenantRent(long tenantId)
         {
-            return _tenantRepository.GetTenantRent();
+            return _tenantRepository.GetTenantRent(tenantId);
         }
     }
 }

@@ -9,6 +9,8 @@
 
   <ItemGroup>
     <Compile Remove="IServices\IQueriesService.cs" />
+    <Compile Remove="IServices\ISubTableService.cs" />
+    <Compile Remove="Services\SubTableService.cs" />
   </ItemGroup>
 
   <ItemGroup>

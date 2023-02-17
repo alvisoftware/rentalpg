@@ -24,10 +24,25 @@ namespace ApiLayer.Controllers
             _rentMasterService = rentMasterService;
         }
         [HttpGet]
-        public async Task<IActionResult> Propertycount(long oId)
+        public async Task<IActionResult> Propertycount(long oId,string role)
         {
-            var results = _dashbordService.DashbordModel(oId);
-            return Ok(results);
+            try
+            {
+                return Ok(new ResponseResult<DashbordModel>
+                {
+                    IsSuccess = true,
+                    message = "",
+                    Result = _dashbordService.DashbordModel(oId,role)
+                });
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, new ResponseResult<List<DashbordModel>>
+                {
+                    IsSuccess = false,
+                    message = "somthing went wrong"
+                });
+            }
         }
     }
 }

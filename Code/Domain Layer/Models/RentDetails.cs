@@ -23,5 +23,6 @@ namespace DomainLayer.Models
             True = 0,
             False = 1,
         }
+        public bool ispaid { get; set; } = false;
     }
 }

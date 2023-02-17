@@ -42,12 +42,17 @@
         @foreach (var item in Model.FirstOrDefault().upcomingrent)
         {
             <tr>
-                <td>@item.propertyname</td>
-                <td>@item.startdate</td>
-                <td>@item.enddate</td>
+                <td>@item.propertytitle</td>
+                <td>@item.startDate</td>
+                <td>@item.endDate</td>
                 <td>@item.rentamount</td>
                 <td>@item.status</td>
             </tr>
         }
     </tbody>
 </table>
+
+@*
+<td>@item.propertyname</td>
+<td>@item.startdate</td>
+<td>@item.enddate</td>*@

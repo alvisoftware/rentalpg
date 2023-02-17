@@ -58,6 +58,29 @@ namespace PresentationLayer.Controllers
                 });
             }   
         }
+        [HttpGet]
+        [Route("GetownerRent")]
+        public async Task<IActionResult> GetOwnerRent(long ownerid)
+        {
+            var owner = _ownerService.GetOwnerRent(ownerid).ToList();
+            if (owner != null)
+            {
+                return Ok(new ResponseResult<List<RentSchedules>>
+                {
+                    IsSuccess = true,
+                    message = "",
+                    Result = owner
+                });
+            }
+            else
+            {
+                return NotFound(new ResponseResult<List<RentSchedules>>
+                {
+                    IsSuccess = true,
+                    message = "OwnerRentnotfound"
+                });
+            }
+        }
         [HttpPost]
         [Route("Add")]
         public async Task<IActionResult> CreateOwner(Owners owners)
@@ -98,28 +121,7 @@ namespace PresentationLayer.Controllers
                     message = "Record Failed"
                 });
             }
-            //if (owners != null)
-            //{
-            //    _ownerService.Insert(owners);
-            //    return Ok("OwnerCreated");
-            //}
-            //else
-            //{
-            //    return BadRequest("Somthing Went Wrong");
-            //}
         }
     }
 }
 
-
-
-
-//var obj = _ownerService.GetAll();
-//if (obj == null)
-//{
-//    return NotFound();
-//}
-//else
-//{
-//    return Ok(obj);
-//}

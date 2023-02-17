@@ -11,6 +11,6 @@ namespace RepositoryLayer.IRepository
 {
     public interface IDashbordRepository<T> where T : class
     {
-        DashbordModel DashbordModel(long ownerid);
+        DashbordModel DashbordModel(long ownerid,string role);
     }
 }

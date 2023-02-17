@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DomainLayer.Models
 {
-    public class UpcomingRent
+    public class RentSchedules
     {
         public string propertytitle { get; set; }
         public string tenantname { get; set; }
@@ -14,5 +14,6 @@ namespace DomainLayer.Models
         public DateTime startDate { get; set; }
         public DateTime endDate { get; set; }
         public string status { get; set; }
+
     }
 }

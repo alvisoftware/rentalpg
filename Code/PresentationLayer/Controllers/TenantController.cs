@@ -26,12 +26,12 @@ namespace ApiLayer.Controllers
         }
         [HttpGet]
         [Route("tenantrent")]
-        public async Task<IActionResult> TenantRent()
+        public async Task<IActionResult> TenantRent(long tenentId)
         {
-            var tenant = _tenantService.TenantRent().ToList();
+            var tenant = _tenantService.TenantRent(tenentId).ToList();
             if (tenant != null)
             {
-                return Ok(new ResponseResult<List<Tenant>>
+                return Ok(new ResponseResult<List<RentSchedules>>
                 {
                     IsSuccess = true,
                     message = "",
@@ -40,7 +40,7 @@ namespace ApiLayer.Controllers
             }
             else
             {
-                return NotFound(new ResponseResult<List<Tenant>>
+                return NotFound(new ResponseResult<List<RentSchedules>>
                 {
                     IsSuccess = true,
                     message = "Tentnat Rent not found"
@@ -101,7 +101,7 @@ namespace ApiLayer.Controllers
                     {
                         Users user = new Users();
                         user.id = tenant.id;
-                        user.userName = tenant.firsttname + ' ' + tenant.lasttname;
+                        user.userName = tenant.firsttname +' '+ tenant.lasttname;
                         user.password = tenant.lasttname;
                         user.role = Users.userrole.tenant;
                         _userRoleService.Add(user);

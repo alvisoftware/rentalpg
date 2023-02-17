@@ -1,4 +1,5 @@
 ﻿using Domain_Layer.Models;
+using DomainLayer.Models;
 using RepositoryLayer.IRepository;
 using Service_Layer.IServices;
 using System;
@@ -62,6 +63,12 @@ namespace Service_Layer.Services
                 return null;
             }
         }
+
+        public IEnumerable<RentSchedules> GetOwnerRent(long ownerid)
+        {
+            return _OwnRepository.GetOwnerRent(ownerid);
+        }
+
         public void Insert(Owners owners)
         {
             try

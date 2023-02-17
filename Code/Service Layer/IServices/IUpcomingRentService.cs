@@ -9,6 +9,6 @@ namespace Service_Layer.IServices
 {
     public interface IUpcomingRentService<T> where T : class
     {
-        List<UpcomingRent> GetUpcomingRent();
+        List<RentSchedules> GetUpcomingRent();
     }
 }
