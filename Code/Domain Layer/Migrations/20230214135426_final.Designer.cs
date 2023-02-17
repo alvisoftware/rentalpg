@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DomainLayer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230202110047_changes")]
-    partial class changes
+    [Migration("20230214135426_final")]
+    partial class final
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -62,6 +62,9 @@ namespace DomainLayer.Migrations
                     b.Property<string>("lastname")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("password")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("website")
                         .HasColumnType("nvarchar(max)");
 
@@ -70,7 +73,7 @@ namespace DomainLayer.Migrations
                     b.ToTable("owners");
                 });
 
-            modelBuilder.Entity("DomainLayer.Models.Assigned", b =>
+            modelBuilder.Entity("DomainLayer.Models.AssignedProperties", b =>
                 {
                     b.Property<long>("id")
                         .ValueGeneratedOnAdd()
@@ -105,6 +108,62 @@ namespace DomainLayer.Migrations
                     b.HasKey("id");
 
                     b.ToTable("assignedproperties");
+                });
+
+            modelBuilder.Entity("DomainLayer.Models.CityModel", b =>
+                {
+                    b.Property<long>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("id"), 1L, 1);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDelete")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("cityname")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("deleteddate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("id");
+
+                    b.ToTable("cities");
+                });
+
+            modelBuilder.Entity("DomainLayer.Models.CountryTable", b =>
+                {
+                    b.Property<long>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("id"), 1L, 1);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDelete")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("countryname")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("deleteddate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("id");
+
+                    b.ToTable("countries");
                 });
 
             modelBuilder.Entity("DomainLayer.Models.PropertyInfo", b =>
@@ -145,11 +204,14 @@ namespace DomainLayer.Migrations
                     b.Property<int>("bedroom")
                         .HasColumnType("int");
 
-                    b.Property<int>("cityid")
-                        .HasColumnType("int");
+                    b.Property<long>("cityid")
+                        .HasColumnType("bigint");
 
-                    b.Property<string>("country")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<long?>("country")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("countryid")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("createdby")
                         .HasColumnType("nvarchar(max)");
@@ -175,8 +237,8 @@ namespace DomainLayer.Migrations
                     b.Property<long>("ownerid")
                         .HasColumnType("bigint");
 
-                    b.Property<int>("propertytypeid")
-                        .HasColumnType("int");
+                    b.Property<long>("propertytypeid")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("seourl")
                         .HasColumnType("nvarchar(max)");
@@ -184,8 +246,8 @@ namespace DomainLayer.Migrations
                     b.Property<string>("specification")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("stateid")
-                        .HasColumnType("int");
+                    b.Property<long>("stateid")
+                        .HasColumnType("bigint");
 
                     b.Property<int>("transtpetype")
                         .HasColumnType("int");
@@ -194,6 +256,12 @@ namespace DomainLayer.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("id");
+
+                    b.HasIndex("cityid");
+
+                    b.HasIndex("country");
+
+                    b.HasIndex("stateid");
 
                     b.ToTable("propertyInfos");
                 });
@@ -232,51 +300,7 @@ namespace DomainLayer.Migrations
                     b.ToTable("queries");
                 });
 
-            modelBuilder.Entity("DomainLayer.Models.RentMaster", b =>
-                {
-                    b.Property<long>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("id"), 1L, 1);
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsDelete")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("amount")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("deleteddate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("enddate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long>("ownerid")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("propertyid")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("startdate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("ownerid");
-
-                    b.HasIndex("propertyid");
-
-                    b.ToTable("rentMasters");
-                });
-
-            modelBuilder.Entity("DomainLayer.Models.RentTable", b =>
+            modelBuilder.Entity("DomainLayer.Models.RentDetails", b =>
                 {
                     b.Property<long>("id")
                         .ValueGeneratedOnAdd()
@@ -321,7 +345,56 @@ namespace DomainLayer.Migrations
                     b.ToTable("rentTables");
                 });
 
-            modelBuilder.Entity("DomainLayer.Models.Subtable", b =>
+            modelBuilder.Entity("DomainLayer.Models.RentMaster", b =>
+                {
+                    b.Property<long>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("id"), 1L, 1);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDelete")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("amount")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("deleteddate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("enddate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("ownerid")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("propertyid")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("startdate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("tenantid")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("ownerid");
+
+                    b.HasIndex("propertyid");
+
+                    b.HasIndex("tenantid");
+
+                    b.ToTable("rentMasters");
+                });
+
+            modelBuilder.Entity("DomainLayer.Models.StateTable", b =>
                 {
                     b.Property<long>("id")
                         .ValueGeneratedOnAdd()
@@ -341,23 +414,12 @@ namespace DomainLayer.Migrations
                     b.Property<DateTime>("deleteddate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("message")
+                    b.Property<string>("statename")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<long>("messageid")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("senderid")
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("type")
-                        .HasColumnType("int");
 
                     b.HasKey("id");
 
-                    b.HasIndex("messageid");
-
-                    b.ToTable("subtables");
+                    b.ToTable("states");
                 });
 
             modelBuilder.Entity("DomainLayer.Models.Tenant", b =>
@@ -403,6 +465,104 @@ namespace DomainLayer.Migrations
                     b.ToTable("tenants");
                 });
 
+            modelBuilder.Entity("DomainLayer.Models.Users", b =>
+                {
+                    b.Property<long>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("id"), 1L, 1);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDelete")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("deleteddate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("role")
+                        .HasColumnType("int");
+
+                    b.Property<string>("userName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("id");
+
+                    b.ToTable("users");
+                });
+
+            modelBuilder.Entity("DomainLayer.Models.ZipCodeTable", b =>
+                {
+                    b.Property<long>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("id"), 1L, 1);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDelete")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("deleteddate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("zipcode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("id");
+
+                    b.ToTable("zipCodes");
+                });
+
+            modelBuilder.Entity("DomainLayer.Models.PropertyInfo", b =>
+                {
+                    b.HasOne("DomainLayer.Models.CityModel", "CityModel")
+                        .WithMany()
+                        .HasForeignKey("cityid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DomainLayer.Models.CountryTable", "CountryTable")
+                        .WithMany()
+                        .HasForeignKey("country");
+
+                    b.HasOne("DomainLayer.Models.StateTable", "StateTable")
+                        .WithMany()
+                        .HasForeignKey("stateid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CityModel");
+
+                    b.Navigation("CountryTable");
+
+                    b.Navigation("StateTable");
+                });
+
+            modelBuilder.Entity("DomainLayer.Models.RentDetails", b =>
+                {
+                    b.HasOne("DomainLayer.Models.RentMaster", "RentMaster")
+                        .WithMany()
+                        .HasForeignKey("rentid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("RentMaster");
+                });
+
             modelBuilder.Entity("DomainLayer.Models.RentMaster", b =>
                 {
                     b.HasOne("Domain_Layer.Models.Owners", "Owners")
@@ -417,31 +577,17 @@ namespace DomainLayer.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("DomainLayer.Models.Tenant", "Tenant")
+                        .WithMany()
+                        .HasForeignKey("tenantid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Owners");
 
                     b.Navigation("PropertyInfo");
-                });
 
-            modelBuilder.Entity("DomainLayer.Models.RentTable", b =>
-                {
-                    b.HasOne("DomainLayer.Models.RentMaster", "RentMaster")
-                        .WithMany()
-                        .HasForeignKey("rentid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("RentMaster");
-                });
-
-            modelBuilder.Entity("DomainLayer.Models.Subtable", b =>
-                {
-                    b.HasOne("DomainLayer.Models.Queries", "Queries")
-                        .WithMany()
-                        .HasForeignKey("messageid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Queries");
+                    b.Navigation("Tenant");
                 });
 #pragma warning restore 612, 618
         }
