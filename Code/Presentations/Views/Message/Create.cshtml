@@ -1,0 +1,55 @@
+﻿@*@model DomainLayer.Models.MesssageDetails*@
+@model RepositoryLayer.CustomeModel.CommonMessage
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/AdminLTE/_Layout.cshtml";
+}
+<h4>MessageCreate</h4>
+<hr />
+
+@using (Html.BeginForm("Create", "Message", FormMethod.Post))
+{
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Message Info</h3>
+                        </div>
+                        <form asp-action="Create" asp-controller="Message" class="form-horizontal">
+                            <div class="card-body">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label class="control-lab">Property Dropdown</label>
+                                        @Html.DropDownList("ddlpropertylist",(List<SelectListItem>)ViewBag.property, new {  @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label">Message Box</label>
+                                        <input id="mesgbox" name="mesgbox" type="text" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <input type="submit" value="Submit" id="btnsubmit" class="btn btn-success " />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+}
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+

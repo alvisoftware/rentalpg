@@ -10,14 +10,11 @@ using System.Threading.Tasks;
 
 namespace DomainLayer.Models
 {
-    public class MessageMaster:BaseEntity
+    public class MesssageMaster:BaseEntity
     {
         public long propertyid{ get; set; }
         [ForeignKey("propertyid")]
         public virtual PropertyInfo PropertyInfo { get; set; }
-        public long ownerid { get;set; }
-        [ForeignKey("ownerid")]
-        public virtual Owners Owners { get; set; }
         public long tenantid { get; set; }
         [ForeignKey("tenantid")]
         public virtual Tenant Tenant { get; set; }

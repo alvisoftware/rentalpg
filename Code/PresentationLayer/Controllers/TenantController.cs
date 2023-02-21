@@ -100,7 +100,7 @@ namespace ApiLayer.Controllers
                     if (ModelState.IsValid)
                     {
                         Users user = new Users();
-                        user.id = tenant.id;
+                        user.relaventid = Convert.ToInt16(tenant.id);
                         user.userName = tenant.firsttname +' '+ tenant.lasttname;
                         user.password = tenant.lasttname;
                         user.role = Users.userrole.tenant;

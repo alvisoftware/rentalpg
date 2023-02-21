@@ -10,13 +10,13 @@ namespace ApiLayer.Controllers
     [ApiController]
     public class MessageDetailsController : ControllerBase
     {
-        private readonly IMessageDetailsService<MesssageDetails> _messageDetails;
-        public MessageDetailsController(IMessageDetailsService<MesssageDetails> messageDetails)
+        private readonly IMessageDetailsService<MessageDetails> _messageDetails;
+        public MessageDetailsController(IMessageDetailsService<MessageDetails> messageDetails)
         {
             _messageDetails = messageDetails;
         }
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ResponseResult<List<MesssageDetails>>))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ResponseResult<List<MessageDetails>>))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetMessageMaster()
         {
@@ -25,7 +25,7 @@ namespace ApiLayer.Controllers
                 var messagesdetails = _messageDetails.GetAll().ToList();
                 if (messagesdetails != null)
                 {
-                    return Ok(new ResponseResult<List<MesssageDetails>>
+                    return Ok(new ResponseResult<List<MessageDetails>>
                     {
                         IsSuccess = true,
                         message = "",
@@ -34,7 +34,7 @@ namespace ApiLayer.Controllers
                 }
                 else
                 {
-                    return NotFound(new ResponseResult<List<MesssageDetails>>
+                    return NotFound(new ResponseResult<List<MessageDetails>>
                     {
                         IsSuccess = true,
                         message = "messagedetails Not Found"
@@ -43,7 +43,7 @@ namespace ApiLayer.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new ResponseResult<List<MesssageDetails>>
+                return StatusCode(500, new ResponseResult<List<MessageDetails>>
                 {
                     IsSuccess = false,
                     message = "somting went Wrong"
@@ -51,13 +51,13 @@ namespace ApiLayer.Controllers
             }
         }
         [HttpPost]
-        public async Task<IActionResult> CreateMessageMaster(MesssageDetails messsageDetails)
+        public async Task<IActionResult> CreateMessageMaster(MessageDetails messsageDetails)
         {
             try
             {
                 if (messsageDetails == null)
                 {
-                    return BadRequest(new ResponseResult<MesssageDetails>
+                    return BadRequest(new ResponseResult<MessageDetails>
                     {
                         IsSuccess = false,
                         message = "messagedetails not Exist"
@@ -66,7 +66,7 @@ namespace ApiLayer.Controllers
                 else
                 {
                     _messageDetails.Insert(messsageDetails);
-                    return Ok(new ResponseResult<MesssageDetails>
+                    return Ok(new ResponseResult<MessageDetails>
                     {
                         IsSuccess = true,
                         message = "Record Save",
@@ -76,7 +76,7 @@ namespace ApiLayer.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new ResponseResult<MesssageDetails>
+                return StatusCode(500, new ResponseResult<MessageDetails>
                 {
                     IsSuccess = false,
                     message = "Record Saved faile"

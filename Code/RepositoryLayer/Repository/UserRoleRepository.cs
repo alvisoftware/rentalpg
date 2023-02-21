@@ -67,7 +67,7 @@ namespace RepositoryLayer.Repository
             existingUsermodel.name = checkExistinguser.userName;
             existingUsermodel.token = tokenHandler.WriteToken(token);
             existingUsermodel.role = checkExistinguser.role.ToString();
-            existingUsermodel.id = checkExistinguser.id.ToString();
+            existingUsermodel.relaventid = checkExistinguser.relaventid.ToString();
             return existingUsermodel;
         }
     }

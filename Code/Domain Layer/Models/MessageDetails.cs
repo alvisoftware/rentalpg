@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace DomainLayer.Models
 {
-    public class MesssageDetails:BaseEntity
+    public class MessageDetails:BaseEntity
     {
         public long messagemasterid { get; set; }
         [ForeignKey("messagemasterid")]
-        public virtual MessageMaster MessageMaster { get; set; }
+        public virtual MesssageMaster MessageMaster { get; set; }
         public string message { get; set; }
         public string status { get; set; }
         public string replyby { get; set; }

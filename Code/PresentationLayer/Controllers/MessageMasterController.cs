@@ -2,6 +2,7 @@
 using DomainLayer.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RepositoryLayer.CustomeModel;
 using Service_Layer.IServices;
 using Service_Layer.Services;
 
@@ -11,10 +12,12 @@ namespace ApiLayer.Controllers
     [ApiController]
     public class MessageMasterController : ControllerBase
     {
-        private readonly IMessageMasterService<MessageMaster> _messageMaster;
-        public MessageMasterController(IMessageMasterService<MessageMaster> messageMaster)
+        private readonly IMessageMasterService<MesssageMaster> _messageMaster;
+        private readonly IMessageDetailsService<MessageDetails> _messageDetails;
+        public MessageMasterController(IMessageMasterService<MesssageMaster> messageMaster, IMessageDetailsService<MessageDetails> messageDetails)
         {
-            _messageMaster= messageMaster;
+            _messageMaster = messageMaster;
+            _messageDetails = messageDetails;
         }
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ResponseResult<List<PropertyInfo>>))]
@@ -26,7 +29,7 @@ namespace ApiLayer.Controllers
                 var messages = _messageMaster.GetAll().ToList();
                 if (messages != null)
                 {
-                    return Ok(new ResponseResult<List<MessageMaster>>
+                    return Ok(new ResponseResult<List<MesssageMaster>>
                     {
                         IsSuccess = true,
                         message = "",
@@ -35,7 +38,7 @@ namespace ApiLayer.Controllers
                 }
                 else
                 {
-                    return NotFound(new ResponseResult<List<MessageMaster>>
+                    return NotFound(new ResponseResult<List<MesssageMaster>>
                     {
                         IsSuccess = true,
                         message = "message Not Found"
@@ -44,7 +47,7 @@ namespace ApiLayer.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new ResponseResult<List<MessageMaster>>
+                return StatusCode(500, new ResponseResult<List<MesssageMaster>>
                 {
                     IsSuccess = false,
                     message = "somting went Wrong"
@@ -52,13 +55,13 @@ namespace ApiLayer.Controllers
             }
         }
         [HttpPost]
-        public async Task<IActionResult> CreateMessageMaster(MessageMaster messageMaster)
+        public async Task<IActionResult> CreateMessageMaster(CommonMessage commonMessage)
         {
             try
             {
-                if (messageMaster == null)
+                if (commonMessage == null)
                 {
-                    return BadRequest(new ResponseResult<MessageMaster>
+                    return BadRequest(new ResponseResult<CommonMessage>
                     {
                         IsSuccess = false,
                         message = "message not Exist"
@@ -66,18 +69,29 @@ namespace ApiLayer.Controllers
                 }
                 else
                 {
+                    MesssageMaster messageMaster = new MesssageMaster();
+                    messageMaster.propertyid = commonMessage.propertyid;
+                    messageMaster.tenantid = commonMessage.tenantid;
                     _messageMaster.Insert(messageMaster);
-                    return Ok(new ResponseResult<MessageMaster>
+
+                    MessageDetails messsageDetails = new MessageDetails();
+                    messsageDetails.messagemasterid = messageMaster.id;
+                    messsageDetails.replyby = commonMessage.role;
+                    messsageDetails.message = commonMessage.message;
+
+                    _messageDetails.Insert(messsageDetails);
+
+                    return Ok(new ResponseResult<CommonMessage>
                     {
                         IsSuccess = true,
                         message = "Record Save",
-                        Result = messageMaster
+                        Result = commonMessage
                     });
                 }
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new ResponseResult<MessageMaster>
+                return StatusCode(500, new ResponseResult<CommonMessage>
                 {
                     IsSuccess = false,
                     message = "Record Saved faile"

@@ -20,5 +20,6 @@ namespace DomainLayer.Models
             owner=1,
             tenant=2
         }
+        public int relaventid { get; set; }
     }
 }

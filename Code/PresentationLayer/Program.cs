@@ -74,8 +74,8 @@ builder.Services.AddScoped<IStateCodeService<StateTable>, StateCodeService>();
 builder.Services.AddScoped<IZipCodeService<ZipCodeTable>, ZipCodeService>();
 builder.Services.AddScoped<IDashbordService<DashbordModel>, DashbordService>();
 builder.Services.AddScoped<IUpcomingRentService<RentSchedules>, UpcomingRentService>();
-builder.Services.AddScoped<IMessageMasterService<MessageMaster>, MessageMasterService>();
-builder.Services.AddScoped<IMessageDetailsService<MesssageDetails>, MessageDetailsService>();
+builder.Services.AddScoped<IMessageMasterService<MesssageMaster>, MessageMasterService>();
+builder.Services.AddScoped<IMessageDetailsService<MessageDetails>, MessageDetailsService>();
 
 builder.Services.AddSingleton<Microsoft.AspNetCore.Http.IHttpContextAccessor, Microsoft.AspNetCore.Http.HttpContextAccessor>();
 var app = builder.Build();

@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace Service_Layer.Services
 {
-    public class MessageMasterService : IMessageMasterService<MessageMaster>
+    public class MessageMasterService : IMessageMasterService<MesssageMaster>
     {
-        private readonly IMessageMasterRepository<MessageMaster> _messageMaster;
-        public MessageMasterService(IMessageMasterRepository<MessageMaster> messageMaster)
+        private readonly IMessageMasterRepository<MesssageMaster> _messageMaster;
+        public MessageMasterService(IMessageMasterRepository<MesssageMaster> messageMaster)
         {
             _messageMaster = messageMaster;
         }
-        public IEnumerable<MessageMaster> GetAll()
+        public IEnumerable<MesssageMaster> GetAll()
         {
             try
             {
@@ -29,7 +29,7 @@ namespace Service_Layer.Services
             }
         }
 
-        public void Insert(MessageMaster messagedetails)
+        public void Insert(MesssageMaster messagedetails)
         {
             try
             {

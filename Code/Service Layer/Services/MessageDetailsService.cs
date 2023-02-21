@@ -9,15 +9,15 @@ using System.Threading.Tasks;
 
 namespace Service_Layer.Services
 {
-    public class MessageDetailsService: IMessageDetailsService<MesssageDetails>
+    public class MessageDetailsService: IMessageDetailsService<MessageDetails>
     {
-        private readonly IMessageDetailsRepository<MesssageDetails> _messageDetails;
-        public MessageDetailsService(IMessageDetailsRepository<MesssageDetails> messageDetails)
+        private readonly IMessageDetailsRepository<MessageDetails> _messageDetails;
+        public MessageDetailsService(IMessageDetailsRepository<MessageDetails> messageDetails)
         {
             _messageDetails = messageDetails;
         }
 
-        public IEnumerable<MesssageDetails> GetAll()
+        public IEnumerable<MessageDetails> GetAll()
         {
             try
             {
@@ -30,7 +30,7 @@ namespace Service_Layer.Services
             }
         }
 
-        public void Insert(MesssageDetails message)
+        public void Insert(MessageDetails message)
         {
             try
             {

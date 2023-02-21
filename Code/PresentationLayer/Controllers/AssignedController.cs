@@ -5,6 +5,7 @@ using iTextSharp.text;
 using iTextSharp.text.pdf;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Org.BouncyCastle.Crypto.Modes.Gcm;
 using RepositoryLayer.CustomeModel;
 using Service_Layer.IServices;
 using Service_Layer.Services;
@@ -100,13 +101,12 @@ namespace ApiLayer.Controllers
                     _countService.AddRent(rentDetails);
 
                     Document document = new Document(PageSize.A4, 36, 36, 36, 36);
-                    string filepath = "C:\\PDF\\rentcounts.pdf";
-                    using (FileStream fileStream = new FileStream(filepath, FileMode.CreateNew, FileAccess.Write, FileShare.None))
+                    string filepath = "C:\\PDF\\rentcountss.pdf";
+                    using (FileStream fileStream = new FileStream(filepath, FileMode.Append, FileAccess.Write, FileShare.None))
                     {
                         PdfWriter writer = PdfWriter.GetInstance(document, fileStream);
                         document.Open();
                         PdfPTable table = new PdfPTable(3);
-
                         //table.DefaultCell.PaddingLeft = 1000;
                         table.AddCell("Amount");
                         table.AddCell("StartDate");

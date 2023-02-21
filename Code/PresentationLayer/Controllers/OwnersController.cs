@@ -98,7 +98,7 @@ namespace PresentationLayer.Controllers
                 else
                 {
                     Users user = new Users();
-                    user.id = owners.id;
+                    user.relaventid = Convert.ToInt16(owners.id);
                     user.userName = owners.email;
                     user.password = owners.password;
                     user.role =  Users.userrole.owner;

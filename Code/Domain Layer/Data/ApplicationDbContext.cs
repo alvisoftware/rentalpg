@@ -42,7 +42,7 @@ namespace Domain_Layer.Data
         //public DbSet<Subtable> subtables { get; set; }
         public DbSet<RentMaster> rentMasters { get; set; }
         public DbSet<RentDetails> rentTables { get;set; }
-        public DbSet<MessageMaster> messageMasters { get; set; }
-        public DbSet<MesssageDetails> messsageDetails { get; set; }
+        public DbSet<MesssageMaster> messageMasters { get; set; }
+        public DbSet<MessageDetails> messsageDetails { get; set; }
     }
 }
