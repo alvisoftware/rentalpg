@@ -53,6 +53,8 @@ builder.Services.AddScoped(typeof(IZipCodeRepository<>), typeof(ZipCodeRepositor
 builder.Services.AddScoped(typeof(IStateRepository<>), typeof(StateCodeRepository<>));
 builder.Services.AddScoped(typeof(IDashbordRepository<>), typeof(DashbordRepository<>));
 builder.Services.AddScoped(typeof(IUpcomingRentRepository<>), typeof(UpcomingRentRepository<>));
+builder.Services.AddScoped(typeof(IMessageMasterRepository<>), typeof(MessageMasterRepository<>));
+builder.Services.AddScoped(typeof(IMessageDetailsRepository<>), typeof(MessageDetailsRepository<>));
 //builder.Services.AddScoped<IUserRoleRepository, UserRoleRepository>();
 //builder.Services.AddControllers();
 
@@ -72,6 +74,8 @@ builder.Services.AddScoped<IStateCodeService<StateTable>, StateCodeService>();
 builder.Services.AddScoped<IZipCodeService<ZipCodeTable>, ZipCodeService>();
 builder.Services.AddScoped<IDashbordService<DashbordModel>, DashbordService>();
 builder.Services.AddScoped<IUpcomingRentService<RentSchedules>, UpcomingRentService>();
+builder.Services.AddScoped<IMessageMasterService<MessageMaster>, MessageMasterService>();
+builder.Services.AddScoped<IMessageDetailsService<MesssageDetails>, MessageDetailsService>();
 
 builder.Services.AddSingleton<Microsoft.AspNetCore.Http.IHttpContextAccessor, Microsoft.AspNetCore.Http.HttpContextAccessor>();
 var app = builder.Build();

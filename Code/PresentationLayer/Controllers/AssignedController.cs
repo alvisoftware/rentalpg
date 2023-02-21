@@ -1,6 +1,8 @@
 ﻿using ApiLayer.Common;
 using Domain_Layer.Data;
 using DomainLayer.Models;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RepositoryLayer.CustomeModel;
@@ -97,6 +99,29 @@ namespace ApiLayer.Controllers
                     }
                     _countService.AddRent(rentDetails);
 
+                    Document document = new Document(PageSize.A4, 36, 36, 36, 36);
+                    string filepath = "C:\\PDF\\rentcounts.pdf";
+                    using (FileStream fileStream = new FileStream(filepath, FileMode.CreateNew, FileAccess.Write, FileShare.None))
+                    {
+                        PdfWriter writer = PdfWriter.GetInstance(document, fileStream);
+                        document.Open();
+                        PdfPTable table = new PdfPTable(3);
+
+                        //table.DefaultCell.PaddingLeft = 1000;
+                        table.AddCell("Amount");
+                        table.AddCell("StartDate");
+                        table.AddCell("EndDate");
+
+                        foreach(var details in rentDetails)
+                        {
+                            table.AddCell(details.amount + ".00");
+                            table.AddCell(Convert.ToString(details.startdate.ToShortDateString()));
+                            table.AddCell(Convert.ToString(details.enddate.ToShortDateString()));
+                            //table.PaddingTop= 1000f;
+                        }
+                        document.Add(table);
+                        document.Close();
+                    }
                     return Ok(new ResponseResult<AssignedProperties>
                     {
                         IsSuccess = true,
