@@ -35,6 +35,7 @@ namespace RepositoryLayer.Repository
         public DashbordModel DashbordModel(long ownerid, string role)
         {
             long availableProperty = _applicationDbContext.propertyInfos.Where(x => x.ownerid == ownerid).Count();
+            //availableProperty = _applicationDbContext.tenants.Where(x => x.id == ownerid).Count();
             List<RentSchedules> schedule=new();
             if (role == Users.userrole.tenant.ToString())
             {
@@ -44,7 +45,8 @@ namespace RepositoryLayer.Repository
             {
                 schedule = this.ownerRepository.GetOwnerRent(ownerid).ToList();
             }
-            int rentedProperty = 1;
+            int rentedProperty=0;
+
             return new DashbordModel()
             {
                 avilable = Convert.ToInt32(availableProperty),

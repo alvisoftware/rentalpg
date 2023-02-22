@@ -17,14 +17,6 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a asp-controller="PropertyType" asp-action="Index" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Property Type</p>
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
                             <a asp-controller="Owners" asp-action="Index" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Seller</p>
@@ -32,7 +24,6 @@
                         </li>
                     </ul>
                 </li>
-
                 <li class="nav-item menu-open">
                     <a href="#" class="nav-link active">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -44,8 +35,8 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a asp-controller="PropertyInfo" asp-action="Index" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>List</p>
+                                <i class="nav-icon fas fa-home"></i>
+                                <p>Property Info</p>
                             </a>
                         </li>
                     </ul>
@@ -54,7 +45,7 @@
                     <a asp-controller="Category" asp-action="Index" class="nav-link">
                         <i class="nav-icon fas fa-home"></i>
                         <p>
-                            Category
+                            Category list
                         </p>
                     </a>
                 </li>
@@ -67,18 +58,26 @@
                     </a>
                 </li>
                 <li class="nav-item ">
-                    <a asp-controller="PropertyInfo" asp-action="Create" class="nav-link">
+                    <a asp-controller="Dashbord" asp-action="Index" class="nav-link">
                         <i class="nav-icon fas fa-home"></i>
                         <p>
-                            Addproperty
+                            Dashbord
                         </p>
                     </a>
                 </li>
                 <li class="nav-item ">
-                    <a asp-controller="Dashbord" asp-action="Index" class="nav-link">
+                    <a asp-controller="Inquiry" asp-action="Index" class="nav-link">
                         <i class="nav-icon fas fa-home"></i>
                         <p>
-                            Addproperty
+                            Inquiry
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a asp-controller="Message" asp-action="Index" class="nav-link">
+                        <i class="nav-icon fas fa-home"></i>
+                        <p>
+                            Message
                         </p>
                     </a>
                 </li>
@@ -86,3 +85,22 @@
         </nav>
     </div>
 </aside>
+
+
+@*                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a asp-controller="PropertyType" asp-action="Index" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Property Type</p>
+                            </a>
+                        </li>
+                    </ul>*@
+@*
+<li class="nav-item ">
+    <a asp-controller="PropertyInfo" asp-action="Create" class="nav-link">
+        <i class="nav-icon fas fa-home"></i>
+        <p>
+            Addproperty
+        </p>
+    </a>
+</li>*@

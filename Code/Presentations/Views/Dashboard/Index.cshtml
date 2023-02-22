@@ -1,4 +1,4 @@
-﻿@model IEnumerable<RepositoryLayer.CustomeModel.DashbordModel>
+﻿@model RepositoryLayer.CustomeModel.DashbordModel
 
 @{
     ViewData["Title"] = "Dashbord";
@@ -10,7 +10,7 @@
         <!-- small box -->
         <div class="small-box bg-info">
             <div class="inner">
-                <h3>@Model.FirstOrDefault().avilable</h3>
+                <h3>@Model.avilable</h3>
                 <p>Totoal Poperty</p>
             </div>
             <div class="icon">
@@ -25,7 +25,7 @@
         <!-- small box -->
         <div class="small-box bg-warning">
             <div class="inner">
-                <h3>@Model.FirstOrDefault().rent</h3>
+                <h3>@Model.rent</h3>
 
                 <p>Rented Property</p>
             </div>
@@ -39,7 +39,14 @@
 
 <table class="table table-condensed table-hover">
     <tbody>
-        @foreach (var item in Model.FirstOrDefault().upcomingrent)
+        <tr>
+            <th>PropertyTittle</th>
+            <th>StartDate</th>
+            <th>EndDate</th>
+            <th>RentedAmount</th>
+            <th>Status</th>
+        </tr>
+        @foreach (var item in Model.upcomingrent)
         {
             <tr>
                 <td>@item.propertytitle</td>

@@ -42,7 +42,7 @@ namespace RepositoryLayer.Repository
                               join rd in _applicationDbContext.rentTables on rm.id equals rd.rentid
                               join pi in _applicationDbContext.propertyInfos on rm.propertyid equals pi.id
                               join te in _applicationDbContext.tenants on rm.tenantid equals te.id
-                              where rm.tenantid == tenantId
+                              where rm.tenantid == tenantId && rd.ispaid==false
                               select new RentSchedules
                               {
                                   propertytitle = pi.name,
@@ -52,7 +52,7 @@ namespace RepositoryLayer.Repository
                                   startDate = rd.startdate,
                                   endDate = rd.enddate
                               }
-                            );
+                            ).Take(5).OrderBy(x=>x.endDate);
             return tenantRent.AsEnumerable();
         }
 

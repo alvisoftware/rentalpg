@@ -79,6 +79,7 @@ namespace ApiLayer.Controllers
                 }
                 else
                 {
+                    #region add propertyrent
                     AssignedProperties assignedProperties = new AssignedProperties();
                     assignedProperties.propertyid= rentMaster.propertyid;
                     assignedProperties.tenantid = rentMaster.tenantid;
@@ -99,9 +100,12 @@ namespace ApiLayer.Controllers
                             enddate=details.enddate, startdate=details.startdate });
                     }
                     _countService.AddRent(rentDetails);
+                    
+                    #endregion
 
+                    #region PdfGenerate
                     Document document = new Document(PageSize.A4, 36, 36, 36, 36);
-                    string filepath = "C:\\PDF\\rentcountss.pdf";
+                    string filepath = "C:\\PDF\\rentcount.pdf";
                     using (FileStream fileStream = new FileStream(filepath, FileMode.Append, FileAccess.Write, FileShare.None))
                     {
                         PdfWriter writer = PdfWriter.GetInstance(document, fileStream);
@@ -122,6 +126,7 @@ namespace ApiLayer.Controllers
                         document.Add(table);
                         document.Close();
                     }
+                    #endregion
                     return Ok(new ResponseResult<AssignedProperties>
                     {
                         IsSuccess = true,
