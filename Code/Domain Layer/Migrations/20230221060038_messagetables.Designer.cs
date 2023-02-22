@@ -4,6 +4,7 @@ using Domain_Layer.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DomainLayer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230221060038_messagetables")]
+    partial class messagetables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -184,6 +186,9 @@ namespace DomainLayer.Migrations
                     b.Property<DateTime>("deleteddate")
                         .HasColumnType("datetime2");
 
+                    b.Property<long>("ownerid")
+                        .HasColumnType("bigint");
+
                     b.Property<long>("propertyid")
                         .HasColumnType("bigint");
 
@@ -191,6 +196,8 @@ namespace DomainLayer.Migrations
                         .HasColumnType("bigint");
 
                     b.HasKey("id");
+
+                    b.HasIndex("ownerid");
 
                     b.HasIndex("propertyid");
 
@@ -232,8 +239,6 @@ namespace DomainLayer.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("id");
-
-                    b.HasIndex("messagemasterid");
 
                     b.ToTable("messsageDetails");
                 });
@@ -560,9 +565,6 @@ namespace DomainLayer.Migrations
                     b.Property<string>("password")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("relaventid")
-                        .HasColumnType("int");
-
                     b.Property<int>("role")
                         .HasColumnType("int");
 
@@ -604,6 +606,12 @@ namespace DomainLayer.Migrations
 
             modelBuilder.Entity("DomainLayer.Models.MessageMaster", b =>
                 {
+                    b.HasOne("Domain_Layer.Models.Owners", "Owners")
+                        .WithMany()
+                        .HasForeignKey("ownerid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("DomainLayer.Models.PropertyInfo", "PropertyInfo")
                         .WithMany()
                         .HasForeignKey("propertyid")
@@ -616,20 +624,11 @@ namespace DomainLayer.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Owners");
+
                     b.Navigation("PropertyInfo");
 
                     b.Navigation("Tenant");
-                });
-
-            modelBuilder.Entity("DomainLayer.Models.MesssageDetails", b =>
-                {
-                    b.HasOne("DomainLayer.Models.MessageMaster", "MessageMaster")
-                        .WithMany()
-                        .HasForeignKey("messagemasterid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("MessageMaster");
                 });
 
             modelBuilder.Entity("DomainLayer.Models.PropertyInfo", b =>
